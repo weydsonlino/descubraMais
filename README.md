@@ -1,32 +1,35 @@
-# descubraMais
+DescubraMais
+DescubraMais é um sistema de gerenciamento de turismo e viagens que facilita a conexão entre turistas e guias turísticos, promovendo o acesso aos principais pontos turísticos de diversas regiões. A plataforma oferece recursos para contratação de guias, criação de roteiros personalizados, interação entre usuários e a oportunidade do usuário auto guiar nessa aventura.
 
-Sistema de gerenciamento de turismo e viagens contanto com contratação de serviço de guia. A proposta do sistema é conectar guias e turistas com os pontos turisticos das regiões.
+📌 Funcionalidades
+Cadastro de usuários: Possibilidade de registrar-se como turista ou guia turístico.
+Criação de roteiros turísticos: Usuários e guias podem criar itinerários personalizados.
+Cadastro de pontos turísticos: Usuários e guias podem adicionar e compartilhar informações sobre pontos turísticos.
+Contratação de serviços: Turistas podem contratar guias para experiências mais personalizadas.
+Compartilhamento de histórias: Espaço para relatar experiências e histórias de viagens.
+Avaliações: Sistema de avaliação para pontos turísticos e perfis de usuários/serviços.
+🛠 Tecnologias Utilizadas
+O sistema foi desenvolvido utilizando as seguintes tecnologias:
 
-#Funcionalidades
-
-Cadastrar usuário/guia e turista.
-Cadastrar as rotas de turismo,(tanto o usuario quanto guia.)
-Cadastrar os pontos turisticos, (tanto o usuario quanto guia.)
-Contratar serviçoes de guia.
-Compartilhamento de historia de viagem.
-Avaliação de pontos turisticos e perfis.
-
-#Tecnologias
-
+Frontend:
 HTML
 CSS
-SVELTE
-PHP
-MYSQL
-SQL
+Svelte
 TypeScript
-
-#Desenvolvedores
-
+Backend:
+PHP
+Banco de Dados:
+MySQL
+SQL
+👥 Equipe de Desenvolvimento
 Gabriel Henrique
 Geany
 Marcos Vinicius
 Maria Leticia
 Maviael Oliveira
 Joana Gomes
-Weydson Lino
+[Weydson Lino](https://github.com/weydsonlino)
+
+Gabriel Henrique
+Geany
+**
