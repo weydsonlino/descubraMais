@@ -13,11 +13,17 @@ DescubraMais é um sistema de gerenciamento de turismo e viagens que facilita a 
 
 
 Cadastro de usuários: Possibilidade de registrar-se como turista ou guia turístico.
+
 Criação de roteiros turísticos: Usuários e guias podem criar itinerários personalizados.
+
 Cadastro de pontos turísticos: Usuários e guias podem adicionar e compartilhar informações sobre pontos turísticos.
+
 Contratação de serviços: Turistas podem contratar guias para experiências mais personalizadas.
+
 Compartilhamento de histórias: Espaço para relatar experiências e histórias de viagens.
+
 Avaliações: Sistema de avaliação para pontos turísticos e perfis de usuários/serviços.
+
 
 🛠 Tecnologias Utilizadas
 
@@ -59,4 +65,3 @@ SQL
 
 [Weydson Lino](https://github.com/weydsonlino)
 
-**
