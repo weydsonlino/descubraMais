@@ -2,7 +2,7 @@ DescubraMais 🌍
 
 
 
-DescubraMais é um sistema de gerenciamento de turismo e viagens que facilita a conexão entre turistas e guias turísticos, promovendo o acesso aos principais pontos turísticos de diversas regiões. A plataforma oferece recursos para contratação de guias, criação de roteiros personalizados, interação entre usuários e a oportunidade do usuário auto guiar nessa aventura.
+DescubraMais é um sistema de gerenciamento de turismo e viagens que facilita a conexão entre turistas e guias turísticos, promovendo o acesso aos principais pontos turísticos de diversas regiões. A plataforma oferece recursos para contratação de guias, criação de roteiros personalizados, interação entre usuários e a oportunidade do usuário auto guiar-se nessa aventura.
 
 
 
