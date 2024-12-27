@@ -1,0 +1,170 @@
+@import './base.css';
+:root {
+  --tittle-font: 'Poppins', sans-serif;
+  --header-background: linear-gradient(90deg, #0073af 0%, #003049 99.99%);
+  --header-text-color: #f5f5f5;
+  --header-link-color: #f5f5f5;
+  --header-button-color: #f5f5f5;
+  --header-button-register-background: #f5f5f5;
+  --header-button-register-text-color: #014467;
+  --header-font-size: 15px;
+}
+
+#header {
+  padding: 1em 10em;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  justify-content: space-between;
+  background: var(--header-background);
+}
+#header-Navigation {
+  font-family: var(--tittle-font);
+  font-size: var(--header-font-size);
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  gap: 3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+  color: var(--header-text-color);
+}
+.header-link {
+  color: var(--header-text-color);
+}
+.button {
+  border-radius: 34px;
+  border: 1px solid #f5f5f5;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0.5em 2em;
+}
+.register-button {
+  background-color: var(--header-button-register-background);
+  color: var(--header-button-register-text-color);
+}
+
+/* Pagina de Pontos turisticos */
+
+.page-tittle {
+  margin: 0.5em;
+  color: #000;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: var(--tittle-font);
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+#page-add-ponto-turistico {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+#form-add-ponto-turistico {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 60%;
+  background-color: #0073af;
+  padding: 2em 5em;
+  margin: 0 0 5em 0;
+  border-radius: 13px;
+  border: 1px solid #000;
+}
+.section-tittle {
+  font-family: var(--tittle-font);
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 1.5em;
+}
+#informacoes-basicas {
+  display: flex;
+  flex-direction: column;
+}
+#image-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0.5em 0;
+}
+#image-preview {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  overflow-x: auto;
+}
+.input {
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em;
+  font-family: monospace;
+  height: 40px;
+  font-size: 16px;
+}
+#descricao {
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em;
+  height: 100px;
+  resize: none;
+  font-size: 16px;
+}
+label {
+  font-family: var(--tittle-font);
+  font-size: 24px;
+}
+#endereco {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 3em;
+}
+.selects-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1em;
+}
+.label-select {
+  font-family: var(--tittle-font);
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+.end-select {
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em;
+  font-family: monospace;
+  height: 40px;
+  font-size: 16px;
+}
+#categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin: 3em 0;
+}
+#container-categorias-selecionadas {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+.categoria-adicionada {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  margin: 0.2em 0;
+  width: 11.2em;
+}
