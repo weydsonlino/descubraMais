@@ -18,10 +18,15 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/adicionarPontoTuristico',
-      name: 'adicionarPontoTuristico',
-      component: () => import('../views/AdicionarPontoTuristico.vue'),
+      path: '/cadastroUsuario',
+      name: 'cadastroUsuario',
+      component: () => import('../views/cadastroUsuario.vue'),
     },
+    {
+      path: '/AdicionarPontoTuristico',
+      name: 'AdicionarPontoTuristico',
+      component: () => import('../views/AdicionarPontoTuristico.vue'),
+    }
   ],
 })
 
