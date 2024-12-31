@@ -16,8 +16,9 @@
       <p class="texto">Seja um Guia ou apenas um viajante</p>
 
       <form @submit.prevent="handleSubmit">
-        <input type="text" class="nome" v-model="formData.name" placeholder="Nome" required />
-        <input type="text" class="cpf" v-model="formData.cpf" placeholder="CPF" required />
+        <input type="text" class="nome" v-model="formData.name" minlength="3" maxlength="100" placeholder="Nome"
+          required />
+        <input type="text" class="cpf" v-mask="'###.###.###-##'" v-model="formData.cpf" placeholder="CPF" required />
 
         <select class="sexo" v-model="formData.gender" required>
           <option class="sexo" value="">Sexo</option>
@@ -26,21 +27,22 @@
           <option value="O">Outros</option>
         </select>
 
-        <input class="telefone" type="tel" v-model="formData.phone" placeholder="Telefone" required />
+        <input class="telefone" v-mask="'(##)#####-####'" type="tel" v-model="formData.phone" placeholder="Telefone"
+          required />
         <input class="senha" type="password" v-model="formData.password" placeholder="Senha" required />
         <input class="senha" type="password" v-model="formData.confirmPassword" placeholder="Confirma senha" required />
 
         <div class="radio-group">
-            <label>
-                 Guia
-                 <input class="radia-quaia" type="radio" value="guia" v-model="formData.role" required />
-            </label>
-            <hr class="linha">
-            <label>
-                 Turista
-                 <input class="radia-turista" type="radio" value="turista" v-model="formData.role" required />
-            </label>
-            <hr class="linha">
+          <label>
+            Guia
+            <input class="radia-quaia" type="radio" value="guia" v-model="formData.role" required />
+          </label>
+          <hr class="linha">
+          <label>
+            Turista
+            <input class="radia-turista" type="radio" value="turista" v-model="formData.role" required />
+          </label>
+          <hr class="linha">
 
         </div>
         <button class="Button-Continuar" type="submit">Continuar</button>
@@ -50,6 +52,8 @@
 </template>
 
 <script lang="ts">
+import VueMask from 'vue-the-mask';
+
 export default {
   data() {
     return {
@@ -93,13 +97,16 @@ export default {
   padding: 2rem;
 }
 
-.texto-imgem-Tutulo,.texto-imgem-Centro,.texto-imgem-Baixo {
+.texto-imgem-Tutulo,
+.texto-imgem-Centro,
+.texto-imgem-Baixo {
   position: absolute;
   text-align: center;
   padding: 1rem;
   color: white;
 }
-.texto-imgem-Tutulo{
+
+.texto-imgem-Tutulo {
   top: 15%;
   left: 2%;
   width: 44%;
@@ -107,7 +114,7 @@ export default {
   font-size: 20px;
 }
 
-.texto-imgem-Centro{
+.texto-imgem-Centro {
   top: 50%;
   left: 2%;
   width: 44%;
@@ -115,7 +122,7 @@ export default {
   font-size: 16px;
 }
 
-.texto-imgem-Baixo{
+.texto-imgem-Baixo {
   top: 100%;
   left: 2%;
   width: 44%;
@@ -156,7 +163,12 @@ form {
   flex-direction: column;
 }
 
-.cpf,.nome,.telefone,.senha,.sexo, button {
+.cpf,
+.nome,
+.telefone,
+.senha,
+.sexo,
+button {
   margin: 0.8rem 0;
   padding: 1rem;
   border: 1px solid #ccc;
@@ -173,8 +185,10 @@ form {
   width: 250px;
   height: 40px;
   top: 107%;
-  left: 67%; /* Alinha o botão à esquerda */
-  position: absolute; /* Define a posição absoluta em relação ao contêiner pai */
+  left: 67%;
+  /* Alinha o botão à esquerda */
+  position: absolute;
+  /* Define a posição absoluta em relação ao contêiner pai */
   border-radius: 25px;
   padding: 5px 50px;
   text-align: center;
@@ -186,17 +200,21 @@ form {
 button:hover {
   background-color: #e0a800;
 }
-.titulo{
+
+.titulo {
   font-size: 25px;
   margin-bottom: 1rem;
   text-align: center;
 }
-.texto{
+
+.texto {
   margin-bottom: 1rem;
   text-align: center;
 }
-.linha{
+
+.linha {
   border: 1px solid #000;
-   width: 100%;
+  width: 100%;
 }
 </style>
+Ravnos
