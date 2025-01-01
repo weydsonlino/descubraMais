@@ -23,10 +23,15 @@ const router = createRouter({
       component: () => import('../views/cadastroUsuario.vue'),
     },
     {
+      path: '/cadastroQuia',
+      name: 'cadastroQuia',
+      component: () => import('../views/cadastroQuia.vue'),
+    },
+    {
       path: '/AdicionarPontoTuristico',
       name: 'AdicionarPontoTuristico',
       component: () => import('../views/AdicionarPontoTuristico.vue'),
-    }
+    },
   ],
 })
 
