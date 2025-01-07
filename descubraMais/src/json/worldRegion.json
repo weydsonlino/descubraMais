@@ -1,0 +1,107 @@
+
+{
+  "countries": [
+    {
+      "name": "Brazil",
+      "states": [
+        {
+          "name": "São Paulo",
+          "cities": ["São Paulo", "Campinas", "Santos", "Sorocaba", "Ribeirão Preto"]
+        },
+        {
+          "name": "Rio de Janeiro",
+          "cities": ["Rio de Janeiro", "Niterói", "Petrópolis", "Nova Friburgo", "Angra dos Reis"]
+        },
+        {
+          "name": "Bahia",
+          "cities": ["Salvador", "Feira de Santana", "Ilhéus", "Itabuna", "Porto Seguro"]
+        }
+      ]
+    },
+    {
+      "name": "United States",
+      "states": [
+        {
+          "name": "California",
+          "cities": ["Los Angeles", "San Francisco", "San Diego", "Sacramento", "Fresno"]
+        },
+        { 
+          "name": "New York",
+          "cities": ["New York City", "Buffalo", "Rochester", "Albany", "Syracuse"]
+        },
+        {
+          "name": "Texas",
+          "cities": ["Houston", "Dallas", "Austin", "San Antonio", "El Paso"]
+        }
+      ]
+    },
+    {
+      "name": "India",
+      "states": [
+        {
+          "name": "Maharashtra",
+          "cities": ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad"]
+        },
+        {
+          "name": "Karnataka",
+          "cities": ["Bangalore", "Mysore", "Mangalore", "Hubli", "Belgaum"]
+        },
+        {
+          "name": "Tamil Nadu",
+          "cities": ["Chennai", "Coimbatore", "Madurai", "Salem", "Tiruchirappalli"]
+        }
+      ]
+    },
+    {
+      "name": "Canada",
+      "states": [
+        {
+          "name": "Ontario",
+          "cities": ["Toronto", "Ottawa", "Mississauga", "Hamilton", "London"]
+        },
+        {
+          "name": "British Columbia",
+          "cities": ["Vancouver", "Victoria", "Surrey", "Burnaby", "Kelowna"]
+        },
+        {
+          "name": "Quebec",
+          "cities": ["Montreal", "Quebec City", "Laval", "Gatineau", "Sherbrooke"]
+        }
+      ]
+    },
+    {
+      "name": "Australia",
+      "states": [
+        {
+          "name": "New South Wales",
+          "cities": ["Sydney", "Newcastle", "Wollongong", "Albury", "Coffs Harbour"]
+        },
+        {
+          "name": "Victoria",
+          "cities": ["Melbourne", "Geelong", "Ballarat", "Bendigo", "Shepparton"]
+        },
+        {
+          "name": "Queensland",
+          "cities": ["Brisbane", "Gold Coast", "Cairns", "Townsville", "Toowoomba"]
+        }
+      ]
+    },
+    {
+      "name": "Germany",
+      "states": [
+        {
+          "name": "Bavaria",
+          "cities": ["Munich", "Nuremberg", "Augsburg", "Regensburg", "Würzburg"]
+        },
+        {
+          "name": "North Rhine-Westphalia",
+          "cities": ["Cologne", "Düsseldorf", "Dortmund", "Essen", "Bonn"]
+        },
+        {
+          "name": "Berlin",
+          "cities": ["Berlin"]
+        },
+      ],
+    },
+  ],
+},
