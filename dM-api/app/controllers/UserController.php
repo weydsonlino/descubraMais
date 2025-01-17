@@ -2,6 +2,12 @@
 
 require_once 'core/Controller.php';
 require_once 'app/models/User.php';
+require_once 'app/middleware/ValidationMiddleware.php';
+
+require 'vendor/autoload.php';
+
+use Respect\Validation\Rules\NotEmpty;
+use Respect\Validation\Validator as v;
 
 class UserController extends Controller
 {
@@ -23,6 +29,31 @@ class UserController extends Controller
     public function store()
     {
         $data = json_decode(file_get_contents('php://input'), true);
+        // Regras de validação
+        if ($data['tipo'] == 'GUIA') {
+            $validationRules = [
+                'cpf' => v::cpf()->NotEmpty()->setName('CPF'),
+                'nome' => v::stringType()->notEmpty()->setName('Nome'),
+                'email' => v::email()->setName('Email'),
+                'telefone' => v::stringType()->notEmpty()->setName('Telefone'),
+                'senha' => v::stringType()->notEmpty()->setName('Senha')->length(8, 20),
+                'sexo' => v::stringType()->notEmpty()->setName('Sexo')->length(1, 1),
+                'tipo' => v::stringType()->notEmpty()->setName('Tipo'),
+                'guia' => v::arrayType()->notEmpty()->setName('Guia')->key('valorServico', v::floatType()->notEmpty()->setName('Valor do Serviço'))->key('tempoAtuacao', v::intType()->notEmpty()->setName('Tempo de Atuação')),
+            ];
+        } else {
+            $validationRules = [
+                'cpf' => v::cpf()->NotEmpty()->setName('CPF'),
+                'nome' => v::stringType()->notEmpty()->setName('Nome'),
+                'email' => v::email()->setName('Email'),
+                'telefone' => v::stringType()->notEmpty()->setName('Telefone'),
+                'senha' => v::stringType()->notEmpty()->setName('Senha')->length(8, 20),
+                'sexo' => v::stringType()->notEmpty()->setName('Sexo')->length(1, 1),
+                'tipo' => v::stringType()->notEmpty()->setName('Tipo'),
+            ];
+        }
+
+        ValidationMiddleware::validation($data, $validationRules);
 
         $cpf = $data['cpf'];
         $nome = $data['nome'];
@@ -31,8 +62,8 @@ class UserController extends Controller
         $senha = $data['senha'];
         $sexo = $data['sexo'];
         $tipo = $data['tipo'];
-        $valorServico = $data['Guia']['valorServico'];
-        $tempoAtuacao = $data['Guia']['tempoAtuacao'];
+        $valorServico = $data['guia']['valorServico'];
+        $tempoAtuacao = $data['guia']['tempoAtuacao'];
 
         // Chamar o método do Model para cadastrar o usuário
         $resultado = User::store($cpf, $nome, $email, $telefone, $senha, $sexo, $tipo, $valorServico, $tempoAtuacao);

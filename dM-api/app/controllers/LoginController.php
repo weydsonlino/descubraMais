@@ -2,7 +2,7 @@
 
 require_once 'core/Controller.php';
 require_once 'app/models/User.php';
-class LoginController
+class LoginController extends Controller
 {
     public function login()
     {
