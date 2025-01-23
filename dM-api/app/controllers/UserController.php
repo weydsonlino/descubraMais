@@ -2,11 +2,10 @@
 
 require_once 'core/Controller.php';
 require_once 'app/models/User.php';
-require_once 'app/middleware/ValidationMiddleware.php';
+require_once 'app/validation/Validation.php';
 
 require 'vendor/autoload.php';
 
-use Respect\Validation\Rules\NotEmpty;
 use Respect\Validation\Validator as v;
 
 class UserController extends Controller
@@ -53,7 +52,7 @@ class UserController extends Controller
             ];
         }
 
-        ValidationMiddleware::validation($data, $validationRules);
+        Validation::validation($data, $validationRules);
 
         $cpf = $data['cpf'];
         $nome = $data['nome'];

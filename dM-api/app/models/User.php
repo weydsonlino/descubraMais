@@ -83,6 +83,7 @@ class User extends Model
 
     public static function getUserByEmail($email)
     {
+        //precisa de melhorias
         $db = self::getDb();
         $result = $db->query("SELECT * FROM " . self::$table . " WHERE USU_EMAIL = '" . $email . "'");
         return $result->fetch(PDO::FETCH_ASSOC);
