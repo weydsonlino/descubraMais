@@ -2,7 +2,7 @@
 
 use Respect\Validation\Exceptions\ValidationException;
 
-class ValidationMiddleware
+class Validation
 {
     public static function validation(array $data, array $rules)
     {
