@@ -77,7 +77,7 @@ export default {
       }
       // Realizar a lógica de envio aqui
       if (this.formData.role === "guia") {
-        this.$router.push('/cadastroQuia'); // Caminho da página configurado no Vue Router
+        this.$router.push('/cadastroGuia'); // Caminho da página configurado no Vue Router
       }
       console.log("Form Data:", this.formData, this.pokemon);
     },
