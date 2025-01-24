@@ -33,5 +33,10 @@ class LoginController extends Controller
             echo json_encode(['logged_in' => false]);
         }
     }
+    public function logout()
+    {
+        session_destroy();
+        echo json_encode(['logged_out' => true]);
+    }
 }
 ?>
