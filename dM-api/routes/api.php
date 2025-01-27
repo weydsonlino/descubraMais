@@ -13,12 +13,12 @@ $router->addRoute('POST', '/logout', 'LoginController@logout');
 //CRUD TPT Routes
 $router->addRoute('GET', '/TiposPontoTuristico', 'TipoPontoTuristicoController@index');
 $router->addRoute('GET', '/TipoPontoTuristico/{id}', 'TipoPontoTuristicoController@getOne');
-$router->addRoute('POST', '/AdicionarTipoPontoTuristico', 'TipoPontoTuristicoController@store');
-$router->addRoute('PUT', '/EditarTipoPontoTuristico', 'TipoPontoTuristicoController@update');
-$router->addRoute('DELETE', '/DeletarTipoPontoTuristico/{id}', 'TipoPontoTuristicoController@delete');
+$router->addRoute('POST', '/TipoPontoTuristico', 'TipoPontoTuristicoController@store');
+$router->addRoute('PUT', '/TipoPontoTuristico', 'TipoPontoTuristicoController@update');
+$router->addRoute('DELETE', '/TipoPontoTuristico/{id}', 'TipoPontoTuristicoController@delete');
 //CRUD Interesses Viajantes Routes
-$router->addRoute('POST', '/AddViajanteInteresses', 'InteresseViajanteController@store');
+$router->addRoute('POST', '/ViajanteInteresses', 'InteresseViajanteController@store');
 
 //CRUD Regiao Routes
-$router->addRoute('POST', '/AddRegiao', 'RegiaoController@store');
+$router->addRoute('POST', '/Regiao', 'RegiaoController@store');
 ?>
