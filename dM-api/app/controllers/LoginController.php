@@ -7,7 +7,7 @@ class LoginController extends Controller
     public function login()
     {
         if (isset($_SESSION['user_id'])) {
-            echo json_encode(['error' => 'Usuário já logado']);
+            echo json_encode(['error' => 'Usuário já logado', 'session' => $_SESSION]);
             return;
         }
         $data = json_decode(file_get_contents('php://input'), true);
@@ -19,7 +19,11 @@ class LoginController extends Controller
             session_start();
             $_SESSION['user_id'] = $user['USU_CPF'];
             $_SESSION['user_nome'] = $user['USU_NOME'];
-            echo json_encode($_SESSION);
+            echo json_encode([
+                'message' => "Usuário logado",
+                $_SESSION
+            ]);
+
         } else {
             echo json_encode(['error' => 'Usuário ou senha inválidos']);
         }
@@ -36,7 +40,10 @@ class LoginController extends Controller
     public function logout()
     {
         session_destroy();
-        echo json_encode(['logged_out' => true]);
+        echo json_encode([
+            'message' => "Usuário deslogado",
+            'logged_out' => true
+        ]);
     }
 }
 ?>
