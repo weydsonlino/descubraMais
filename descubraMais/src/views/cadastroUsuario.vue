@@ -22,6 +22,7 @@
           required />
 
         <select class="sexo" v-model="formData.gender" placeholder="sexo" required>
+          <option value="" disabled selected>Sexo</option>
           <option value="M">Masculino</option>
           <option value="F">Feminino</option>
           <option value="O">Outros</option>
@@ -43,7 +44,6 @@
             <input class="radia-turista" type="radio" value="turista" v-model="formData.role" required />
           </label>
           <hr class="linha">
-
         </div>
         <button class="Button-Continuar" type="submit">Continuar</button>
       </form>
@@ -52,35 +52,62 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+import { defineStore, createPinia } from 'pinia';
+import { createApp } from 'vue';
 import VueMask from 'vue-the-mask';
-import '@/assets/cadastroUsuario.css'
+import '@/assets/cadastroUsuario.css';
 
-export default {
-  data() {
-    return {
-      formData: {
-        name: "",
-        cpf: "",
-        gender: "",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-        role: "",
-      },
-    };
+// Definição da Store
+const useUserStore = defineStore('user', {
+  state: () => ({
+    userData: {
+      name: "",
+      cpf: "",
+      gender: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
+      role: "",
+    },
+  }),
+  actions: {
+    setUserData(data: any) {
+      this.userData = data;
+    },
   },
-  methods: {
-    handleSubmit() {
-      if (this.formData.password !== this.formData.confirmPassword) {
+});
+
+export default defineComponent({
+  setup() {
+    const userStore = useUserStore();
+    const formData = { ...userStore.userData };
+
+    const handleSubmit = () => {
+      if (formData.password !== formData.confirmPassword) {
         alert("As senhas não coincidem!");
         return;
       }
       // Realizar a lógica de envio aqui
-      if (this.formData.role === "guia") {
-        this.$router.push('/cadastroGuia'); // Caminho da página configurado no Vue Router
+      userStore.setUserData(formData);
+
+      if (formData.role === "guia") {
+        this.$router.push('cadastroGuia'); // Caminho da página configurado no Vue Router
+      } else {
+        console.log("trabalho")
       }
-      console.log("Form Data:", this.formData, this.pokemon);
-    },
+      console.log("Form Data:", formData);
+    };
+
+    return {
+      formData,
+      handleSubmit,
+    };
   },
-};
+});
+
+// Configuração do Pinia
+const pinia = createPinia();
+const app = createApp({});
+app.use(pinia);
 </script>

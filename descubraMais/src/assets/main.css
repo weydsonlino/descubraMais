@@ -168,3 +168,25 @@ label {
   margin: 0.2em 0;
   width: 11.2em;
 }
+
+.Button-Continuar {
+  background-color: #f2d050;
+  color: #fff;
+  border: none;
+  width: 250px;
+  height: 40px;
+  top: 107%;
+  left: 67%;
+  /* Alinha o botão à esquerda */
+  position: absolute;
+  /* Define a posição absoluta em relação ao contêiner pai */
+  border-radius: 25px;
+  padding: 5px 50px;
+  text-align: center;
+  font-size: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-color: #e0a800;
+}
