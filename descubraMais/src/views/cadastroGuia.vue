@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container">>
     <div class="left-section">
       <div class="texto-imgem-Tutulo">
         <h2>Crie sua Conta e Explore o Mundo com<br />Descubra Mais!</h2>
@@ -16,8 +16,6 @@
       <p class="texto">Seja um Guia ou apenas um viajante</p>
 
       <form @submit.prevent="handleSubmit">
-        <input type="text" class="nome" v-model="formData.name" minlength="3" maxlength="100" placeholder="Nome"
-          required />
         <input type="text" class="valor" v-mask="'$ ##.###.##'" v-model="formData.valor" placeholder="Valor por hora"
           required />
 
@@ -29,37 +27,35 @@
             {{ this.pais = pais.nome }}
           </option>
         </select>
-        <p>Nome do estado</p>
-        <select class="estado" v-model="formData.estado" required>
-          <option value="" disabled selected>Estado</option>
-          <option v-for="estado in filteredEstados" :key="estado.id" :value="estado.id">
-            {{ this.estado = estado.nome }}
-          </option>
-        </select>
-        <p>Nome da cidade</p>
-        <select class="cidade" v-model="formData.cidade" required>
-          <option value="" disabled selected>Cidade</option>
-          <option v-for="cidade in filteredCidades" :key="cidade.id" :value="cidade.id">
-            {{ this.cidade = cidade.nome }}
-          </option>
-        </select>
+        <div class="conteiner-estado_cidade">
+          <select class="estado" v-model="formData.estado" required>
+            <option value="" disabled selected>Estado</option>
+            <option v-for="estado in filteredEstados" :key="estado.id" :value="estado.id">
+              {{ this.estado = estado.nome }}
+            </option>
+          </select>
+          <select class="cidade" v-model="formData.cidade" required>
+            <option value="" disabled selected>Cidade</option>
+            <option v-for="cidade in filteredCidades" :key="cidade.id" :value="cidade.id">
+              {{ this.cidade = cidade.nome }}
+            </option>
+          </select>
+        </div>
         <button class="button-continua" type="submit">Cadastrar</button>
       </form>
     </div>
   </div>
 </template>
-
 <script lang="ts">
 import VueMask from "vue-the-mask";
-import "@/assets/cadastroQuia.css";
-import { useUserStore } from 'pinia'
+import "@/assets/css/cadastroGuia.css";
+import { defineStore } from 'pinia';
 import axios from "axios";
 
 export default {
   data() {
     return {
       formData: {
-        name: "",
         valor: "",
         pais: "",
         estado: "",
@@ -100,7 +96,8 @@ export default {
     async axiosPais() {
       try {
         const pais = await axios.get(
-          "https://servicodados.ibge.gov.br/api/v1/localidades/paises/");
+          "https://servicodados.ibge.gov.br/api/v1/localidades/paises/"
+        );
         this.jsonDadosPais = pais.data;
       } catch (error) {
         console.error("Erro ao carregar os países:", error);
@@ -150,8 +147,6 @@ export default {
         // Caso contrário, retorne todas as cidades (quando estadoStr for vazio)
         return estadoStr ? cidade.id.toString().startsWith(estadoStr) : true;
       });
-
-
     },
   },
 };

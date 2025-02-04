@@ -15,7 +15,7 @@
       <h3 class="titulo">Cadastre-se</h3>
       <p class="texto">Seja um Guia ou apenas um viajante</p>
 
-      <form @submit.prevent="handleSubmit">
+      <form class="formPrincipal" @submit.prevent="handleSubmit">
         <input type="text" class="nome" v-model="formData.name" minlength="3" maxlength="100" placeholder="Nome"
           required />
         <input type="text" class="cpf" v-mask="'###.###.###-##'" v-model="formData.cpf" placeholder="CPF" minlength="14"
@@ -30,21 +30,17 @@
 
         <input class="telefone" v-mask="'(##)#####-####'" type="tel" v-model="formData.phone" minlength="15"
           placeholder="Telefone" required />
-        <input class="senha" type="password" v-model="formData.password" placeholder="Senha" required />
-        <input class="senha" type="password" v-model="formData.confirmPassword" placeholder="Confirma senha" required />
-
-        <div class="radio-group">
-          <label>
-            Guia
-            <input class="radia-quaia" type="radio" value="guia" v-model="formData.role" required />
-          </label>
-          <hr class="linha">
-          <label>
-            Turista
-            <input class="radia-turista" type="radio" value="turista" v-model="formData.role" required />
-          </label>
-          <hr class="linha">
+        <div class="senha-container">
+          <input type="password" class="senha" v-model="formData.password" placeholder="Senha" required />
+          <input type="password" class="confirmar_senha" v-model="formData.confirmPassword"
+            placeholder="Confirmar Senha" required />
         </div>
+
+        <select class="tipoUSU" v-model="formData.role" required>
+          <option value="" disabled selected>O que você é?</option>
+          <option value="Guia">Guia</option>
+          <option value="Turista">Turista</option>
+        </select>
         <button class="Button-Continuar" type="submit">Continuar</button>
       </form>
     </div>
@@ -55,8 +51,9 @@
 import { defineComponent } from 'vue';
 import { defineStore, createPinia } from 'pinia';
 import { createApp } from 'vue';
+import { useRouter } from 'vue-router'; // Importando useRouter
 import VueMask from 'vue-the-mask';
-import '@/assets/cadastroUsuario.css';
+import '@/assets/css/cadastroUsuario.css';
 
 // Definição da Store
 const useUserStore = defineStore('user', {
@@ -82,6 +79,7 @@ export default defineComponent({
   setup() {
     const userStore = useUserStore();
     const formData = { ...userStore.userData };
+    const router = useRouter(); // Usando useRouter para acessar o router
 
     const handleSubmit = () => {
       if (formData.password !== formData.confirmPassword) {
@@ -91,10 +89,10 @@ export default defineComponent({
       // Realizar a lógica de envio aqui
       userStore.setUserData(formData);
 
-      if (formData.role === "guia") {
-        this.$router.push('cadastroGuia'); // Caminho da página configurado no Vue Router
-      } else {
-        console.log("trabalho")
+      if (formData.role === "Guia") {
+        router.push('cadastroGuia'); // Usando router.push em vez de $router.push
+      } else if (formData.role === "Turista") {
+        router.push('cadastroTurista'); // Usando router.push
       }
       console.log("Form Data:", formData);
     };
