@@ -97,7 +97,7 @@ class User extends Model
             $query = "UPDATE " . self::$table . " SET USU_NOME = :nome, USU_EMAIL = :email, USU_TELEFONE = :telefone, USU_SENHA = :senha, USU_SEXO = :sexo, USU_TIPO = :tipo where USU_CPF = :cpf";
             $stmt = $db->prepare($query);
             $stmt->execute([
-                "cpf" => $cpf,
+                ":cpf" => $cpf,
                 ':nome' => $nome,
                 ':email' => $email,
                 ':telefone' => $telefone,
