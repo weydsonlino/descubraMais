@@ -13,13 +13,23 @@ class PontoTuristicoController extends Controller
     {
         $data = self::getRequestBody();
         $nome = $data['nome'];
+        $pais = $data['pais'];
+        $cidade = $data['cidade'];
+        $estado = $data['estado'];
+        $rua = $data['rua'];
         $informacoes = $data['informacoes'];
-        $id = $data['id'];
-        $pontoTuristico = PontoTuristico::store($nome, $informacoes, $id);
+        $user = $data['user'];
+        $tipoPontoTuristicoId = $data['tipoPontoTuristicoId'];
+        $pontoTuristico = PontoTuristico::store($nome, $informacoes, $user, $pais, $cidade, $estado, $rua, $tipoPontoTuristicoId);
         if (isset($pontoTuristico['error'])) {
-            $this->respond(['message' => 'Erro ao cadastrar ponto turístico'], 500);
+            $this->respond([
+                'message' => 'Erro ao cadastrar ponto turístico',
+                $pontoTuristico
+            ], 500);
         } else {
-            $this->respond(['message' => 'Ponto turístico cadastrado com sucesso'], 201);
+            $this->respond([
+                'message' => 'Ponto turístico cadastrado com sucesso',
+            ], 201);
         }
     }
 

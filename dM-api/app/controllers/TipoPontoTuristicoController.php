@@ -20,7 +20,7 @@ class TipoPontoTuristicoController extends Controller
     }
     public function store()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = self::getRequestBody();
         $nome = $data["nome"];
 
         $tipoPontoTuristico = TipoPontoTuristico::create($nome);
@@ -28,7 +28,7 @@ class TipoPontoTuristicoController extends Controller
     }
     public function update()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = self::getRequestBody();
         $nome = $data["nome"];
         $id = $data["id"];
         $tipoPontoTuristico = TipoPontoTuristico::update($id, $nome);

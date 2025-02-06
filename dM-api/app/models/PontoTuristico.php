@@ -9,7 +9,23 @@ class PontoTuristico extends Model
     {
         try {
             $db = self::getDb();
-            $query = "SELECT * FROM " . self::$table_name;
+            $query = "SELECT 
+                PTT.PTT_NOME AS NOME,
+                PTT.PTT_INFORMACOES AS INFORMACOES,
+                PTT.DM_USU_CPF AS USUARIO,
+                END.END_PAIS AS PAIS,
+                END.END_CIDADE AS CIDADE,
+                END.END_ESTADO AS ESTADO,
+                END.END_RUA AS RUA,
+                TPT.TPT_NOME AS TIPO
+                 FROM " . self::$table_name . " AS PTT
+                 INNER JOIN DM_ENDERECO AS END
+                 ON PTT.PTT_ID = END.DM_PTT_ID
+                 INNER JOIN DM_PTT_TPT AS PTT_TPT
+                 ON PTT.PTT_ID = PTT_TPT.DM_PTT_ID
+                 INNER JOIN DM_TIPO_PONTO_TURISTICO AS TPT
+                 ON PTT_TPT.DM_TPT_ID = TPT.TPT_ID
+                 ";
             $stmt = $db->query($query);
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -25,27 +41,47 @@ class PontoTuristico extends Model
             ];
         }
     }
-    public static function store($nome, $informacoes, $id)
+    public static function store($nome, $informacoes, $user, $pais, $cidade, $estado, $rua, $tipoPontoTuristicoId)
     {
         try {
-            $db = self::getDb();
-            $query = "INSERT INTO " . self::$table_name . " (PTT_NAME, PTT_INFORMACOES, DM_USU_CPF) VALUES (:nome, :informacoes, :id)";
-            $stmt = $db->prepare($query);
-            $stmt->execute(
-                [
-                    ":nome" => $nome,
-                    ":informacoes" => $informacoes,
-                    ":id" => $id
-                ]
-            );
 
-            return [
-                "message" => "Ponto turístico cadastrado com sucesso",
-            ];
+            $db = self::getDb();
+            $db->beginTransaction();
+            //Criando o Ponto Turistico
+            $query = "INSERT INTO " . self::$table_name . " (PTT_NOME, PTT_INFORMACOES, DM_USU_CPF) VALUES (:nome, :informacoes, :id)";
+            $stmt = $db->prepare($query);
+            $stmt->execute([
+                ":nome" => $nome,
+                ":informacoes" => $informacoes,
+                ":id" => $user
+            ]);
+
+            $pontoTuristicoId = $db->lastInsertId();
+
+            //Criando a relação entre o Ponto Turistico e o Tipo de Ponto Turistico
+            $query = "INSERT INTO DM_PTT_TPT(DM_PTT_ID, DM_TPT_ID) VALUES (:pontoTuristicoId, :tipoPontoTuristicoId)";
+            $stmt = $db->prepare($query);
+            $stmt->execute([
+                ":pontoTuristicoId" => $pontoTuristicoId,
+                ":tipoPontoTuristicoId" => $tipoPontoTuristicoId
+            ]);
+
+            //Criando e relacionando o Endereço do Ponto Turistico
+            $query = "INSERT INTO DM_ENDERECO (END_PAIS, END_ESTADO, END_CIDADE, END_RUA, DM_PTT_ID) VALUES (:pais, :estado, :cidade, :rua, :pontoTuristicoId)";
+            $stmt = $db->prepare($query);
+            $stmt->execute([
+                ":pais" => $pais,
+                ":estado" => $estado,
+                ":cidade" => $cidade,
+                ":rua" => $rua,
+                ":pontoTuristicoId" => $pontoTuristicoId
+            ]);
+
+            $db->commit();
 
         } catch (Exception $e) {
+            $db->rollBack();
             return [
-                "message" => "Erro ao cadastrar ponto turístico",
                 "error" => $e->getMessage()
             ];
         }
@@ -54,7 +90,24 @@ class PontoTuristico extends Model
     {
         try {
             $db = self::getDb();
-            $query = "SELECT * FROM " . self::$table_name . " WHERE PTT_ID = :id";
+            $query = "SELECT 
+                PTT.PTT_NOME AS NOME,
+                PTT.PTT_INFORMACOES AS INFORMACOES,
+                PTT.DM_USU_CPF AS USUARIO,
+                END.END_PAIS AS PAIS,
+                END.END_CIDADE AS CIDADE,
+                END.END_ESTADO AS ESTADO,
+                END.END_RUA AS RUA,
+                TPT.TPT_NOME AS TIPO
+                 FROM " . self::$table_name . " AS PTT
+                 INNER JOIN DM_ENDERECO AS END
+                 ON PTT.PTT_ID = END.DM_PTT_ID
+                 INNER JOIN DM_PTT_TPT AS PTT_TPT
+                 ON PTT.PTT_ID = PTT_TPT.DM_PTT_ID
+                 INNER JOIN DM_TIPO_PONTO_TURISTICO AS TPT
+                 ON PTT_TPT.DM_TPT_ID = TPT.TPT_ID
+                 WHERE PTT.PTT_ID = :id
+                 ";
             $stmt = $db->prepare($query);
             $stmt->execute([
                 ":id" => $id

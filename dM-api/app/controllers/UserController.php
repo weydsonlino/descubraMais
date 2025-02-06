@@ -26,7 +26,7 @@ class UserController extends Controller
     }
     public function store()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = self::getRequestBody();
         // Regras de validação
         if ($data['tipo'] == 'GUIA') {
             $validationRules = [
@@ -71,8 +71,6 @@ class UserController extends Controller
     public function update()
     {
         $data = self::getRequestBody();
-
-        $data = json_decode(file_get_contents('php://input'), true);
         // Regras de validação
         if ($data['tipo'] == 'GUIA') {
             $validationRules = [
