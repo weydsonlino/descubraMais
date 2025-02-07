@@ -37,6 +37,10 @@ class UserController extends Controller
                 'senha' => v::stringType()->notEmpty()->setName('Senha')->length(8, 20),
                 'sexo' => v::stringType()->notEmpty()->setName('Sexo')->length(1, 1),
                 'tipo' => v::stringType()->notEmpty()->setName('Tipo'),
+                'pais' => v::stringType()->notEmpty()->setName('Pais'),
+                'estado' => v::stringType()->notEmpty()->setName('Estado'),
+                'cidade' => v::stringType()->notEmpty()->setName('Cidade'),
+                'rua' => v::stringType()->notEmpty()->setName('Rua'),
                 'guia' => v::arrayType()->notEmpty()->setName('Guia')->key('valorServico', v::floatType()->notEmpty()->setName('Valor do Serviço'))->key('tempoAtuacao', v::intType()->notEmpty()->setName('Tempo de Atuação')),
             ];
         } else {
@@ -59,11 +63,15 @@ class UserController extends Controller
         $senha = $data['senha'];
         $sexo = $data['sexo'];
         $tipo = $data['tipo'];
+        $pais = $data['pais'];
+        $estado = $data['estado'];
+        $cidade = $data['cidade'];
+        $rua = $data['rua'];
         $valorServico = $data['guia']['valorServico'];
         $tempoAtuacao = $data['guia']['tempoAtuacao'];
 
         // Chamar o método do Model para cadastrar o usuário
-        $user = User::store($cpf, $nome, $email, $telefone, $senha, $sexo, $tipo, $valorServico, $tempoAtuacao);
+        $user = User::store($cpf, $nome, $email, $telefone, $senha, $sexo, $tipo, $valorServico, $tempoAtuacao, $pais, $estado, $cidade, $rua);
 
         // Retornar a resposta
         echo json_encode($user);
@@ -116,12 +124,9 @@ class UserController extends Controller
             ], 400);
         }
     }
-    public function delete()
+    public function delete($cpf)
     {
-        $data = self::getRequestBody();
-        $tipo = $data['tipo'];
-        $cpf = $data['cpf'];
-        $user = User::delete($cpf, $tipo);
+        $user = User::delete($cpf);
         $this->respond(
             [
                 'message' => 'Usuário deletado com sucesso',

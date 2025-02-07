@@ -18,7 +18,7 @@ class User extends Model
         $result = $db->query("SELECT * FROM " . self::$table . " WHERE USU_CPF = '" . $cpf . "'");
         return $result->fetch(PDO::FETCH_ASSOC);
     }
-    public static function store($cpf, $nome, $email, $telefone, $senha, $sexo, $tipo, $valorServico, $tempoAtuacao)
+    public static function store($cpf, $nome, $email, $telefone, $senha, $sexo, $tipo, $valorServico, $tempoAtuacao, $pais, $estado, $cidade, $rua)
     {
         $senha_hash = password_hash($senha, PASSWORD_BCRYPT);
 
@@ -56,6 +56,15 @@ class User extends Model
             } else {
                 throw new Exception('Tipo de usuário inválido');
             }
+            $query = "INSERT INTO DM_ENDERECO(END_PAIS, END_CIDADE, END_ESTADO, END_RUA, DM_USU_CPF) VALUES(:pais, :cidade, :estado, :rua, :cpf)";
+            $stmt = $db->prepare($query);
+            $stmt->execute([
+                ":cpf" => $cpf,
+                ":pais" => $pais,
+                ":cidade" => $cidade,
+                ":estado" => $estado,
+                ":rua" => $rua
+            ]);
 
             //A transação somente será efetivada se chegar até aqui sem erros
             $db->commit();
@@ -83,10 +92,20 @@ class User extends Model
 
     public static function getUserByEmail($email)
     {
-        //precisa de melhorias
+
         $db = self::getDb();
-        $result = $db->query("SELECT * FROM " . self::$table . " WHERE USU_EMAIL = '" . $email . "'");
-        return $result->fetch(PDO::FETCH_ASSOC);
+
+        $query = "SELECT USU_SENHA as senha,
+        USU_CPF AS cpf,
+        USU_NOME AS nome
+        FROM " . self::$table .
+            " WHERE USU_EMAIL = :email";
+
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ":email" => $email
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     public static function update($cpf, $nome, $email, $telefone, $senha, $sexo, $tipo, $valorServico, $tempoAtuacao)
     {
@@ -133,38 +152,20 @@ class User extends Model
         }
     }
 
-    public static function delete($cpf, $tipo)
+    public static function delete($cpf)
     {
         try {
             $db = self::getDb();
-            $db->beginTransaction();
-
-            if ($tipo === "VIAJANTE") {
-                $query = "DELETE FROM DM_VIAJANTE WHERE DM_USU_CPF = :cpf";
-                $stmt = $db->prepare($query);
-                $stmt->execute([':cpf' => $cpf]);
-            } elseif ($tipo === "GUIA") {
-                $query = "DELETE FROM DM_GUIA WHERE DM_USU_CPF = :cpf";
-                $stmt = $db->prepare($query);
-                $stmt->execute([':cpf' => $cpf]);
-            } else {
-                throw new Exception(message: 'O Tipo de usuário inválido' . $tipo);
-            }
-
             $query = "DELETE FROM " . self::$table . " WHERE USU_CPF = :cpf";
             $stmt = $db->prepare($query);
             $stmt->execute([
                 ":cpf" => $cpf
             ]);
 
-            $db->commit();
-
             return [
                 "message" => "Usuário deletado com sucesso"
             ];
-
         } catch (Exception $e) {
-            $db->rollBack();
             return [
                 "erro" => "Erro ao deletar usuario" . $e->getMessage()
             ];

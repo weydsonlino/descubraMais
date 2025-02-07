@@ -15,10 +15,10 @@ class LoginController extends Controller
         $senha = $data['senha'];
 
         $user = User::getUserByEmail($email);
-        if ($user && password_verify($senha, $user['USU_SENHA'])) {
+        if ($user && password_verify($senha, $user['senha'])) {
             session_start();
-            $_SESSION['user_id'] = $user['USU_CPF'];
-            $_SESSION['user_nome'] = $user['USU_NOME'];
+            $_SESSION['user_id'] = $user['cpf'];
+            $_SESSION['user_nome'] = $user['nome'];
             echo json_encode([
                 'message' => "Usuário logado",
                 $_SESSION
