@@ -38,8 +38,8 @@
 
         <select class="tipoUSU" v-model="formData.role" required>
           <option value="" disabled selected>O que você é?</option>
-          <option value="Guia">Guia</option>
-          <option value="Turista">Turista</option>
+          <option value="GUIA">Guia</option>
+          <option value="VIAJANTE">Viajante</option>
         </select>
         <button class="Button-Continuar" type="submit">Continuar</button>
       </form>
