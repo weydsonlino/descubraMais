@@ -15,7 +15,7 @@
 
 .left-section {
   flex: 1;
-  background-image: url('../assets/mountain-landscape-with-hot-air-balloon-dawn-generative-ai.jpg');
+  background-image: url('../peakpx.jpg');
   background-size: cover;
   background-position: center;
   padding: 2rem;
@@ -109,13 +109,13 @@ button {
 }
 
 .button-continua {
-  background-color: #f2d050;
-  color: #fff;
+  background-color: #F57C00;
+  color:black;
   border: none;
   width: 250px;
   height: 40px;
-  top: 107%;
-  left: 67%;
+  top: 109%;
+  left: 63%;
   /* Alinha o botão à esquerda */
   position: absolute;
   /* Define a posição absoluta em relação ao contêiner pai */

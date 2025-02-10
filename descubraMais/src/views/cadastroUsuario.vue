@@ -32,14 +32,14 @@
           placeholder="Telefone" required />
         <div class="senha-container">
           <input type="password" class="senha" v-model="formData.password" placeholder="Senha" required />
-          <input type="password" class="confirmar_senha" v-model="formData.confirmPassword"
-            placeholder="Confirmar Senha" required />
+          <input type="password" class="confirmar_senha" v-model="confirmPassword" placeholder="Confirmar Senha"
+            required />
         </div>
 
         <select class="tipoUSU" v-model="formData.role" required>
           <option value="" disabled selected>O que você é?</option>
-          <option value="GUIA">Guia</option>
-          <option value="VIAJANTE">Viajante</option>
+          <option value="Guia">Guia</option>
+          <option value="Turista">Turista</option>
         </select>
         <button class="Button-Continuar" type="submit">Continuar</button>
       </form>
@@ -48,64 +48,88 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { defineStore, createPinia } from 'pinia';
-import { createApp } from 'vue';
-import { useRouter } from 'vue-router'; // Importando useRouter
-import VueMask from 'vue-the-mask';
-import '@/assets/css/cadastroUsuario.css';
-
-// Definição da Store
-const useUserStore = defineStore('user', {
-  state: () => ({
-    userData: {
-      name: "",
-      cpf: "",
-      gender: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
-      role: "",
-    },
-  }),
-  actions: {
-    setUserData(data: any) {
-      this.userData = data;
-    },
-  },
-});
+import { defineComponent, ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import VueMask from "vue-the-mask";
+import "@/assets/css/cadastroUsuario.css";
+import { useUserStore } from "../stores/user"; // Corrigido o caminho da store
 
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
-    const formData = { ...userStore.userData };
-    const router = useRouter(); // Usando useRouter para acessar o router
+    const router = useRouter();
+    const confirmPassword = ref('');
 
+    // Criamos um objeto reativo para os dados do formulário
+    const formData = ref({ ...userStore.userData });
+
+    // Computed para recuperar os dados já preenchidos
+    const userData = computed(() => userStore.userData);
+
+    // Campos adicionais do Guia
+    const valor = ref("");
+    const pais = ref("");
+    const estado = ref("");
+    const cidade = ref("");
+
+    // Função para salvar os dados do Guia no Pinia
+    const salvarGuia = () => {
+      userStore.setUserData({
+        ...userStore.userData, // Mantém os dados anteriores
+        valor: valor.value,
+        pais: pais.value,
+        estado: estado.value,
+        cidade: cidade.value,
+      });
+
+      console.log("Dados completos do usuário:", userStore.userData);
+    };
+
+    // Função para salvar os dados do Turista no Pinia
+    const salvarTurista = () => {
+      userStore.setUserData({
+        ...userStore.userData, // Mantém os dados anteriores
+        valor: valor.value,
+        pais: pais.value,
+        estado: estado.value,
+        cidade: cidade.value,
+      });
+
+      console.log("Dados completos do usuário:", userStore.userData);
+    };
+
+    // Função de envio do formulário inicial
     const handleSubmit = () => {
-      if (formData.password !== formData.confirmPassword) {
-        alert("As senhas não coincidem!");
+      if (formData.value.password !== confirmPassword.value) {
+        alert("As senhas não coincidem. Por favor, verifique e tente novamente.");
         return;
       }
-      // Realizar a lógica de envio aqui
-      userStore.setUserData(formData);
 
-      if (formData.role === "Guia") {
-        router.push('cadastroGuia'); // Usando router.push em vez de $router.push
-      } else if (formData.role === "Turista") {
-        router.push('cadastroTurista'); // Usando router.push
+      // Salva os dados no Pinia
+      userStore.setUserData(formData.value);
+
+      // Redireciona com base na função do usuário
+      if (formData.value.role === "Guia") {
+        router.push("/cadastroGuia");
+      } else if (formData.value.role === "Turista") {
+        router.push("/cadastroTurista");
       }
-      console.log("Form Data:", formData);
+
+      console.log("Form Data salvo no Pinia:", formData.value);
     };
 
     return {
       formData,
       handleSubmit,
+      userData,
+      valor,
+      pais,
+      estado,
+      cidade,
+      salvarGuia,
+      salvarTurista,
+      confirmPassword,
     };
   },
 });
-
-// Configuração do Pinia
-const pinia = createPinia();
-const app = createApp({});
-app.use(pinia);
 </script>

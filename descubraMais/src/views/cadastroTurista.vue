@@ -44,107 +44,111 @@
 </template>
 
 <script lang="ts">
-import VueMask from "vue-the-mask";
-import "../assets/css/CadastroTurista.css";
-import { useUserStore } from 'pinia';
+import { defineComponent, ref, watch, computed } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
+import { useUserStore } from "../stores/user"; // Corrigido o caminho da store
+import "../assets/css/cadastroTurista.css";
 
-export default {
-  data() {
+export default defineComponent({
+  setup() {
+    const userStore = useUserStore();
+    const router = useRouter();
+
+    const formData = ref({
+      pais: "",
+      estado: "",
+      cidade: "",
+    });
+
+    const jsonDadosPais = ref([]);
+    const jsonDadosEstados = ref([]);
+    const jsonDadosCidades = ref([]);
+    const estados = ref([]);
+    const cidades = ref([]);
+
+    const axiosPais = async () => {
+      try {
+        const pais = await axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/paises/");
+        jsonDadosPais.value = pais.data;
+      } catch (error) {
+        console.error("Erro ao carregar os países:", error);
+      }
+    };
+
+    const axiosEstados = async () => {
+      try {
+        const estados = await axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados");
+        jsonDadosEstados.value = estados.data;
+      } catch (error) {
+        console.error("Erro ao carregar os estados:", error);
+      }
+    };
+
+    const axiosCidades = async () => {
+      if (!formData.value.estado) return;
+      try {
+        const cidades = await axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${formData.value.estado}/municipios`);
+        jsonDadosCidades.value = cidades.data;
+      } catch (error) {
+        console.error("Erro ao carregar as cidades:", error);
+      }
+    };
+
+    watch(
+      () => formData.value.pais,
+      (novoPais) => {
+        const paisSelecionado = jsonDadosPais.value.find((pais) => pais.id === novoPais);
+        estados.value = paisSelecionado ? paisSelecionado.estados || [] : [];
+        formData.value.estado = "";
+        formData.value.cidade = "";
+        axiosEstados();
+      }
+    );
+
+    watch(
+      () => formData.value.estado,
+      (novoEstado) => {
+        const estadoSelecionado = jsonDadosEstados.value.find((estado) => estado.id === novoEstado);
+        cidades.value = estadoSelecionado ? estadoSelecionado.cidades || [] : [];
+        axiosCidades();
+      }
+    );
+
+    const handleSubmit = () => {
+      console.log("Dados do Formulário:", formData.value);
+      userStore.setUserData({ ...userStore.userData, ...formData.value });
+      router.push("/some-next-route"); // Redireciona para a próxima rota após o cadastro
+    };
+
+    const SelectPais = computed(() => jsonDadosPais.value.map((pais) => ({ id: pais.id, nome: pais.nome })));
+
+    const filteredEstados = computed(() => jsonDadosEstados.value.filter((estado) => formData.value.pais ? estado.id.startsWith(formData.value.pais) : true));
+
+    const filteredCidades = computed(() => {
+      const estadoStr = formData.value.estado.toString();
+      return jsonDadosCidades.value.filter((cidade) => estadoStr ? cidade.id.toString().startsWith(estadoStr) : true);
+    });
+
     return {
-      formData: {
-        pais: "",
-        estado: "",
-        cidade: "",
-      },
-      jsonDadosPais: [],
-      jsonDadosEstados: [],
-      jsonDadosCidades: [],
-      estados: [],
-      cidades: [],
-    }
+      formData,
+      jsonDadosPais,
+      jsonDadosEstados,
+      jsonDadosCidades,
+      estados,
+      cidades,
+      SelectPais,
+      filteredEstados,
+      filteredCidades,
+      handleSubmit,
+      axiosPais,
+      axiosEstados,
+      axiosCidades
+    };
   },
   async mounted() {
     await this.axiosPais();
     await this.axiosEstados();
-  },
-  watch: {
-    "formData.pais"(novoPais) {
-      const paisSelecionado = this.jsonDadosPais.find(
-        (pais) => pais.id === novoPais
-      );
-      this.estados = paisSelecionado ? paisSelecionado.estados || [] : [];
-      this.formData.estado = "";
-      this.formData.cidade = "";
-    },
-    "formData.estado"(novoEstado) {
-      const estadoSelecionado = this.jsonDadosEstados.find(
-        (estado) => estado.id === novoEstado
-      );
-      this.cidades = estadoSelecionado ? estadoSelecionado.cidades || [] : [];
-      this.axiosCidades();
-    },
-  },
-  methods: {
-    handleSubmit() {
-      console.log("Dados do Formulário:", this.formData);
-    },
-    async axiosPais() {
-      try {
-        const pais = await axios.get(
-          "https://servicodados.ibge.gov.br/api/v1/localidades/paises/");
-        this.jsonDadosPais = pais.data;
-      } catch (error) {
-        console.error("Erro ao carregar os países:", error);
-      }
-    },
-    async axiosEstados() {
-      try {
-        const estados = await axios.get(
-          "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-        );
-        this.jsonDadosEstados = estados.data;
-      } catch (error) {
-        console.error("Erro ao carregar os estados:", error);
-      }
-    },
-    async axiosCidades() {
-      if (!this.formData.estado) return;
-      try {
-        const cidades = await axios.get(
-          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${this.formData.estado}/municipios`
-        );
-        this.jsonDadosCidades = cidades.data;
-      } catch (error) {
-        console.error("Erro ao carregar as cidades:", error);
-      }
-    },
-  },
-  computed: {
-    SelectPais() {
-      return this.jsonDadosPais.map((pais) => ({
-        id: pais.id,
-        nome: pais.nome,
-      }));
-    },
-    filteredEstados() {
-      return this.jsonDadosEstados.filter((estado) =>
-        this.formData.pais ? estado.id.startsWith(this.formData.pais) : true
-      );
-    },
-    filteredCidades() {
-      // Certifique-se de que o estado é uma string
-      const estadoStr = this.formData.estado.toString();
-
-      // Filtre as cidades com base no estado
-      return this.jsonDadosCidades.filter((cidade) => {
-        // Se estadoStr não estiver vazio, verifique se o id da cidade começa com estadoStr
-        // Caso contrário, retorne todas as cidades (quando estadoStr for vazio)
-        return estadoStr ? cidade.id.toString().startsWith(estadoStr) : true;
-      });
-
-
-    },
-  },
-};
+  }
+});
 </script>
