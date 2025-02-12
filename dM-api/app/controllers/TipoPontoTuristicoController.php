@@ -26,11 +26,10 @@ class TipoPontoTuristicoController extends Controller
         $tipoPontoTuristico = TipoPontoTuristico::create($nome);
         $this->respond($tipoPontoTuristico, 200);
     }
-    public function update()
+    public function update($id)
     {
         $data = self::getRequestBody();
         $nome = $data["nome"];
-        $id = $data["id"];
         $tipoPontoTuristico = TipoPontoTuristico::update($id, $nome);
         $this->respond($tipoPontoTuristico, 200);
     }

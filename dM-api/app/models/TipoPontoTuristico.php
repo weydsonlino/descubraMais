@@ -9,7 +9,7 @@ class TipoPontoTuristico extends Model
     {
         try {
             $db = self::getDb();
-            $query = ("SELECT * FROM " . self::$table);
+            $query = ("SELECT TPT_ID AS id, TPT_NOME AS nome FROM " . self::$table);
             $stmt = $db->query($query);
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

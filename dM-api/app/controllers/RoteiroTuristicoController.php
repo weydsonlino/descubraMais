@@ -1,0 +1,68 @@
+<?php
+require "app/models/RoteiroTuristico.php";
+require "core/Controller.php";
+
+class RoteiroTuristicoController extends Controller
+{
+
+
+    public function index()
+    {
+        $roteiroTuristico = RoteiroTuristico::index();
+        $this->respond($roteiroTuristico, 200);
+    }
+    public function getOne($id)
+    {
+        if (isset($id)) {
+            $roteiroTuristico = RoteiroTuristico::getOne($id);
+            $this->respond($roteiroTuristico, 200);
+        } else {
+            $this->respond(["error" => "Roteiro turistico não encontrado"], 400);
+        }
+    }
+    public function store()
+    {
+        $data = $this->getRequestBody();
+        $nome = $data["nome"];
+        $visibilidade = $data["visibilidade"];
+        $descricao = $data["descricao"];
+        $cpf = $data["cpf"];
+        $pontosTuristicos = $data["pontosTuristicos"];
+        $roteiroTuristico = RoteiroTuristico::store($nome, $visibilidade, $descricao, $cpf, $pontosTuristicos);
+        if (isset($roteiroTuristico["error"])) {
+            $this->respond($roteiroTuristico, 400);
+        }
+        $this->respond($roteiroTuristico, 200);
+    }
+
+    public function delete($id)
+    {
+        if (isset($id)) {
+            $roteiroTuristico = RoteiroTuristico::delete($id);
+            $this->respond($roteiroTuristico, 200);
+
+        } else {
+            $roteiroTuristico = ["error" => "Roteiro turistico não encontrado"];
+            $this->respond($roteiroTuristico, 400);
+        }
+
+    }
+    public function update($id)
+    {
+        $data = $this->getRequestBody();
+        $nome = $data["nome"];
+        $visibilidade = $data["visibilidade"];
+        $descricao = $data["descricao"];
+        $cpf = $data["cpf"];
+        $pontosTuristicos = $data["pontosTuristicos"];
+
+        $roteiroTuristico = RoteiroTuristico::update($id, $nome, $visibilidade, $descricao, $cpf, $pontosTuristicos);
+        if (isset($roteiroTuristico["error"])) {
+            $this->respond($roteiroTuristico, 400);
+        }
+        $this->respond($roteiroTuristico, 200);
+    }
+
+}
+
+?>

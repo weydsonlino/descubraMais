@@ -12,10 +12,10 @@ $router->addRoute('POST', '/login', 'LoginController@login');
 $router->addRoute('POST', '/logout', 'LoginController@logout');
 
 //CRUD TPT Routes
-$router->addRoute('GET', '/tipopontoturistico', 'TipoPontoTuristicoController@index');
+$router->addRoute('GET', '/tipospontoturistico', 'TipoPontoTuristicoController@index');
 $router->addRoute('GET', '/tipopontoturistico/{id}', 'TipoPontoTuristicoController@getOne');
 $router->addRoute('POST', '/tipopontoturistico', 'TipoPontoTuristicoController@store');
-$router->addRoute('PUT', '/tipopontoturistico', 'TipoPontoTuristicoController@update');
+$router->addRoute('PUT', '/tipopontoturistico/{id}', 'TipoPontoTuristicoController@update');
 $router->addRoute('DELETE', '/tipopontoturistico/{id}', 'TipoPontoTuristicoController@delete');
 
 //CRUD Interesses Viajantes Routes
@@ -25,6 +25,13 @@ $router->addRoute('POST', '/viajanteInteresses', 'InteresseViajanteController@st
 $router->addRoute('POST', '/pontoturistico', 'PontoTuristicoController@store');
 $router->addRoute('GET', '/pontoturistico', 'PontoTuristicoController@index');
 $router->addRoute('GET', '/pontoturistico/{id}', 'PontoTuristicoController@show');
+
+//CRUD ROTEIRO TURISTICOS Routes
+$router->addRoute('GET', '/roteirosturistico', 'RoteiroTuristicoController@index');
+$router->addRoute('GET', '/roteirosturistico/{id}', 'RoteiroTuristicoController@getOne');
+$router->addRoute('POST', '/roteirosturistico', 'RoteiroTuristicoController@store');
+$router->addRoute('DELETE', '/roteirosturistico/{id}', 'RoteiroTuristicoController@delete');
+$router->addRoute('PUT', '/roteiroturistico/{id}', 'RoteiroTuristicoController@update');
 
 //CRUD Regiao Routes
 $router->addRoute('POST', '/regiao', 'RegiaoController@store');
