@@ -25,7 +25,7 @@ const cidades = ref<{ id: string; nome: string }[]>([]);
 //Pegandos tipos existentes no banco de dados, é necessário um cadastramento previo
 async function axiosTipos(){
   try{
-    const response = await axios.get('http://localhost:8000/tipopontoturistico');
+    const response = await axios.get('http://localhost:8000/tipospontoturistico');
     tipos.value = response.data.data;
     console.log(tipos.value);
   }catch (error){
@@ -149,7 +149,7 @@ function handleSubmit() {
 }
 .left-section {
   flex: 1;
-  background-image: url('../assets/pontoTuristicoImage.png');
+  background-image: url('../assets/imagem_ponto_turisticos.png');
   background-size: cover;
   background-position: center;
   padding: 2rem;
