@@ -138,7 +138,7 @@ function handleSubmit() {
   <div>
   </div>
 </template>
-<style>
+<style scoped>
 
 .container {
   margin: 4% 9%;
