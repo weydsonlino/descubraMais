@@ -49,17 +49,17 @@ class RoteiroTuristico extends Model
             ];
         }
     }
-    public static function store($nome, $visibilidade, $descricao, $cpf, $pontosTuristicos)
+    public static function store($nome, $visibilidade, $informacoes, $cpf, $pontosTuristicos)
     {
         try {
             $db = self::getDb();
             $db->beginTransaction();
-            $query = "INSERT INTO " . self::$table_name . " (RTT_NOME, RTT_VISIBILIDADE, RTT_DESCRICAO, DM_USU_CPF) VALUES (:nome, :visibilidade, :descricao, :cpf)";
+            $query = "INSERT INTO " . self::$table_name . " (RTT_NOME, RTT_VISIBILIDADE, RTT_DESCRICAO, DM_USU_CPF) VALUES (:nome, :visibilidade, :informacoes, :cpf)";
             $stmt = $db->prepare($query);
             $stmt->execute([
                 ":nome" => $nome,
                 ":visibilidade" => $visibilidade,
-                ":descricao" => $descricao,
+                ":informacoes" => $informacoes,
                 ":cpf" => $cpf
             ]);
             $roteiro = $db->lastInsertId();
@@ -86,14 +86,14 @@ class RoteiroTuristico extends Model
             ];
         }
     }
-    public static function update($id, $nome, $visibilidade, $descricao, $cpf, $pontosTuristicos)
+    public static function update($id, $nome, $visibilidade, $informacoes, $cpf, $pontosTuristicos)
     {
         try {
             $db = self::getDb();
             $db->beginTransaction();
             $query = "UPDATE " . self::$table_name . " SET RTT_NOME = :nome, 
               RTT_VISIBILIDADE = :visibilidade, 
-              RTT_DESCRICAO = :descricao, 
+              RTT_DESCRICAO = :informacoes, 
               DM_USU_CPF = :cpf
                 WHERE RTT_ID = :id";
             $stmt = $db->prepare($query);
@@ -101,7 +101,7 @@ class RoteiroTuristico extends Model
                 ":id" => $id,
                 ":nome" => $nome,
                 ":visibilidade" => $visibilidade,
-                ":descricao" => $descricao,
+                ":informacoes" => $informacoes,
                 ":cpf" => $cpf
             ]);
             $query = "UPDATE DM_RTT_PTT SET DM_PTT_ID = :ponto, DM_RTT_PTT_ORDEM = :ordem WHERE DM_RTT_ID = :id";

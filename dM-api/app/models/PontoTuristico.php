@@ -10,14 +10,15 @@ class PontoTuristico extends Model
         try {
             $db = self::getDb();
             $query = "SELECT 
-                PTT.PTT_NOME AS NOME,
-                PTT.PTT_INFORMACOES AS INFORMACOES,
-                PTT.DM_USU_CPF AS USUARIO,
-                END.END_PAIS AS PAIS,
-                END.END_CIDADE AS CIDADE,
-                END.END_ESTADO AS ESTADO,
-                END.END_RUA AS RUA,
-                TPT.TPT_NOME AS TIPO
+                PTT.PTT_ID AS id,
+                PTT.PTT_NOME AS nome,
+                PTT.PTT_INFORMACOES AS informacoes,
+                PTT.DM_USU_CPF AS usuario,
+                END.END_PAIS AS pais,
+                END.END_CIDADE AS cidade,
+                END.END_ESTADO AS estado,
+                END.END_RUA AS rua,
+                TPT.TPT_NOME AS tipo
                  FROM " . self::$table_name . " AS PTT
                  INNER JOIN DM_ENDERECO AS END
                  ON PTT.PTT_ID = END.DM_PTT_ID
@@ -91,14 +92,15 @@ class PontoTuristico extends Model
         try {
             $db = self::getDb();
             $query = "SELECT 
-                PTT.PTT_NOME AS NOME,
-                PTT.PTT_INFORMACOES AS INFORMACOES,
-                PTT.DM_USU_CPF AS USUARIO,
-                END.END_PAIS AS PAIS,
-                END.END_CIDADE AS CIDADE,
-                END.END_ESTADO AS ESTADO,
-                END.END_RUA AS RUA,
-                TPT.TPT_NOME AS TIPO
+                PTT.PTT_ID AS id,
+                PTT.PTT_NOME AS nome,
+                PTT.PTT_INFORMACOES AS informacoes,
+                PTT.DM_USU_CPF AS usuario,
+                END.END_PAIS AS pais,
+                END.END_CIDADE AS cidade,
+                END.END_ESTADO AS estado,
+                END.END_RUA AS rua,
+                TPT.TPT_NOME AS tipo
                  FROM " . self::$table_name . " AS PTT
                  INNER JOIN DM_ENDERECO AS END
                  ON PTT.PTT_ID = END.DM_PTT_ID

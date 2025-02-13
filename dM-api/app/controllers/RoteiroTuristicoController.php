@@ -25,10 +25,10 @@ class RoteiroTuristicoController extends Controller
         $data = $this->getRequestBody();
         $nome = $data["nome"];
         $visibilidade = $data["visibilidade"];
-        $descricao = $data["descricao"];
+        $informacoes = $data["informacoes"];
         $cpf = $data["cpf"];
         $pontosTuristicos = $data["pontosTuristicos"];
-        $roteiroTuristico = RoteiroTuristico::store($nome, $visibilidade, $descricao, $cpf, $pontosTuristicos);
+        $roteiroTuristico = RoteiroTuristico::store($nome, $visibilidade, $informacoes, $cpf, $pontosTuristicos);
         if (isset($roteiroTuristico["error"])) {
             $this->respond($roteiroTuristico, 400);
         }
@@ -52,11 +52,11 @@ class RoteiroTuristicoController extends Controller
         $data = $this->getRequestBody();
         $nome = $data["nome"];
         $visibilidade = $data["visibilidade"];
-        $descricao = $data["descricao"];
+        $informacoes = $data["informacoes"];
         $cpf = $data["cpf"];
         $pontosTuristicos = $data["pontosTuristicos"];
 
-        $roteiroTuristico = RoteiroTuristico::update($id, $nome, $visibilidade, $descricao, $cpf, $pontosTuristicos);
+        $roteiroTuristico = RoteiroTuristico::update($id, $nome, $visibilidade, $informacoes, $cpf, $pontosTuristicos);
         if (isset($roteiroTuristico["error"])) {
             $this->respond($roteiroTuristico, 400);
         }
