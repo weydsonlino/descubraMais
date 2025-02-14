@@ -1,5 +1,5 @@
 import './assets/main.css';
-
+import './assets/css/HomeView.css';
 import { createApp } from 'vue';
 import App from './App.vue'; // Verifique se o caminho está correto
 import router from './router';
