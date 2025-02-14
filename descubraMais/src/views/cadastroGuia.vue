@@ -1,21 +1,13 @@
 <template>
   <div class="container">
     <div class="left-section">
-      <div class="texto-imgem-Tutulo">
-        <h2>Crie sua Conta e Explore o Mundo com<br />Descubra Mais!</h2>
-      </div>
-      <div class="texto-imgem-Centro">
-        <p>Bem-vindo(a) ao Descubra Mais, sua plataforma para planejar viagens inesquecíveis.</p>
-      </div>
-      <div class="texto-imgem-Baixo">
-        <p>Cadastre-se agora e comece a explorar o mundo do seu jeito!</p>
-      </div>
     </div>
     <div class="right-section">
-      <h3 class="titulo">Cadastre-se</h3>
-      <p class="texto">Seja um Guia ou apenas um viajante</p>
-
-      <form @submit.prevent="handleSubmit">
+      <div class="conteiner-titolo_texto">
+        <h1 class="titulo">Cadastre-se</h1>
+        <p class="texto">Seja um Guia ou apenas um viajante</p>
+      </div>
+      <form class="formPrincipal" @submit.prevent="handleSubmit">
         <input type="text" class="valor" v-mask="'$ ###,##'" v-model="formData.valor" placeholder="Valor por hora"
           required />
         <h4>Selecione suas regiões de atuação</h4>
@@ -40,7 +32,13 @@
             </option>
           </select>
         </div>
-        <button class="button-continua" type="submit">Cadastrar</button>
+        <h2>Regiões selecionadas</h2>
+        <AddItem />
+        <ItemList />
+        <div class="conteiner-Bu_Co">
+          <button class="Button-Continuar" type="submit">Continuar</button>
+          <router-link class="Conta" to="/login">Já tem conta? Faça login</router-link>
+        </div>
       </form>
     </div>
   </div>
@@ -52,6 +50,8 @@ import { useUserStore } from "../stores/user";
 import axios from "axios";
 import VueMask from "vue-the-mask";
 import "@/assets/css/cadastroGuia.css";
+import AddItem from '../components/AddItem.vue';
+import ItemList from '../components/ItemList.vue';
 
 export default defineComponent({
   components: {
@@ -93,7 +93,7 @@ export default defineComponent({
     const axiosCidades = async (estadoId) => {
       if (!estadoId) return;
       try {
-        const cidades = await axios.get(
+        const cidades = await axios.get(<ItemList />
           `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoId}/municipios`
         );
         jsonDadosCidades.value = cidades.data;

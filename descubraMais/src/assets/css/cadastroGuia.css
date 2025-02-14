@@ -1,7 +1,3 @@
-.px {
-  color: red;
-}
-
 .container {
   margin-top: 4%;
   margin-left: 9%;
@@ -15,43 +11,10 @@
 
 .left-section {
   flex: 1;
-  background-image: url('../peakpx.jpg');
+  background-image: url('../Imagem para fundo de tela Pretos, Cidade.jpg');
   background-size: cover;
   background-position: center;
   padding: 2rem;
-}
-
-.texto-imgem-Tutulo,
-.texto-imgem-Centro,
-.texto-imgem-Baixo {
-  position: absolute;
-  text-align: center;
-  padding: 1rem;
-  color: white;
-}
-
-.texto-imgem-Tutulo {
-  top: 20%;
-  left: 7%;
-  width: 44%;
-  font-family: Khmer;
-  font-size: 20px;
-}
-
-.texto-imgem-Centro {
-  top: 60%;
-  left: 7%;
-  width: 44%;
-  font-family: Khmer;
-  font-size: 16px;
-}
-
-.texto-imgem-Baixo {
-  top: 110%;
-  left: 7%;
-  width: 44%;
-  font-family: Kite One;
-  font-size: 16px;
 }
 
 .radio-group {
@@ -60,8 +23,6 @@
   align-items: flex-start;
   gap: 0.5rem;
 }
-
-
 
 .right-section {
   flex: 1;
@@ -74,9 +35,11 @@
   border-radius: 8px;
 }
 
-form {
+.formPrincipal {
+  align-items: center; /* Centraliza os elementos */
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .valor,
@@ -84,38 +47,36 @@ form {
 .pais,
 .region,
 .cidade,
-.estado,
-button {
+.estado {
   border-radius: 10px;
-  border: 1px solid #D5D5D5;
-  margin: 0.8rem 0;
+  margin: 0.1rem 0;
   padding: 1rem;
-  border-color:D5D5D5;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
+  border: 2px solid #b0afaf;
+  width: 602px;
 }
+
 .conteiner-estado_cidade {
   display: flex; /* Deixa os inputs lado a lado */
   gap: 10px; /* Espaço entre os inputs */
+  justify-content: center; /* Centraliza os inputs horizontalmente */
+  align-items: center; /* Alinha verticalmente */
   width: 100%;
 }
 
 .cidade,
 .estado {
-  border-radius: 10px;
-  margin: 0.8rem 0;
-  padding: 1rem;
-  border: 1px solid #D5D5D5;
-  width: 100%; /* Ocupa o espaço disponível dentro do flexbox */
+  display: flex; /* Deixa os inputs lado a lado */
+  gap: 10px; /* Espaço entre os inputs */
+  width: 296px;
 }
 
-.button-continua {
+.Button-Continuar {
   background-color: #F57C00;
   color:black;
   border: none;
-  width: 250px;
-  height: 40px;
-  top: 109%;
-  left: 63%;
+  width: 321px;
+  height: 45px;
   /* Alinha o botão à esquerda */
   position: absolute;
   /* Define a posição absoluta em relação ao contêiner pai */
@@ -126,13 +87,30 @@ button {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.conteiner-Bu_Co{
+  display: flex;
+  flex-direction: column; /* Coloca os elementos um abaixo do outro */
+  align-items: center; /* Centraliza os elementos */
+  gap: 50px; /* Espaço entre o botão e o texto "Conta" */
+  margin-top: 45px; /* Adiciona um espaço acima */
+}
+
+.Conta {
+  text-align: center;
+  margin-top: 55px;
+  color: black;
+}
 
 button:hover {
   background-color: #e0a800;
 }
 
+.conteiner-titolo_texto{
+   margin-top: 50px; /* Ajuste o valor conforme necessário */;
+}
 .titulo {
-  font-size: 25px;
+  margin-bottom: 100px;
+  font-size: 44px;
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -140,9 +118,4 @@ button:hover {
 .texto {
   margin-bottom: 1rem;
   text-align: center;
-}
-
-.linha {
-  border: 1px solid #000;
-  width: 100%;
 }

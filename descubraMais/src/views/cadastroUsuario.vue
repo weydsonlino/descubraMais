@@ -4,9 +4,6 @@
       <div class="texto-imgem-Tutulo">
         <h2>Crie sua Conta e Explore o Mundo com<br> Descubra Mais!</h2>
       </div>
-      <div class="texto-imgem-Centro">
-        <p>Bem-vindo(a) ao Descubra Mais, sua plataforma para planejar viagens inesquecíveis.</p>
-      </div>
       <div class="texto-imgem-Baixo">
         <p>Cadastre-se agora e comece a explorar o mundo do seu jeito!</p>
       </div>
@@ -41,7 +38,10 @@
           <option value="Guia">Guia</option>
           <option value="Turista">Turista</option>
         </select>
-        <button class="Button-Continuar" type="submit">Continuar</button>
+        <div class="conteiner-Bu_Co">
+          <button class="Button-Continuar" type="submit">Continuar</button>
+          <router-link class="Conta" to="/login">Já tem conta? Faça login</router-link>
+        </div>
       </form>
     </div>
   </div>

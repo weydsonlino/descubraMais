@@ -15,8 +15,8 @@
       <h3 class="titulo">Cadastro de Turista</h3>
       <p class="texto">Preencha as informações abaixo para se cadastrar como turista</p>
 
-      <form @submit.prevent="handleSubmit">
-        <h4>Selecione suas regiões de atuação</h4>
+      <form class="formPrincipal" @submit.prevent="handleSubmit">
+        <h4 class="tex">Selecione suas cidades/regiões de Interesse</h4>
 
         <select class="pais" v-model="formData.pais" required>
           <option value="" disabled selected>Pais</option>
@@ -37,7 +37,10 @@
             {{ this.cidade = cidade.nome }}
           </option>
         </select>
-        <button class="button-continuar" type="submit">Cadastrar</button>
+        <div class="conteiner-Bu_Co">
+          <button class="Button-Continuar" type="submit">Continuar</button>
+          <router-link class="Conta" to="/login">Já tem conta? Faça login</router-link>
+        </div>
       </form>
     </div>
   </div>
