@@ -59,53 +59,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
-.button-continuar {
-  background-color: #F57C00;
-  color:black;
-  border: none;
-  width: 250px;
-  height: 40px;
-  margin-top: 50px;
-  border-radius: 25px;
-  padding: 5px 50px;
-  text-align: center;
-  font-size: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-}
-select{
-  display: flex;
-  width: 140px;
-  height: 41px;
-  padding: 0 8px;
-  margin-bottom: 20px;
-  align-items: center;
-  gap:-48px;
-  border-radius: 14px;
-  border: 1px solid #FFF;
-  background: #FFF;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
-  color: #828181;
-  font-family: Roboto,serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 150%; /* 21px */
-  letter-spacing: -0.154px;
-}
-.select-maior{
-  width: 456px;
-  height: 41px;
-}
-option{
-  color: #828181;
-  font-family: Roboto,serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 150%; /* 21px */
-  letter-spacing: -0.154px;
-}
 .container-select{
   display: flex;
 }
