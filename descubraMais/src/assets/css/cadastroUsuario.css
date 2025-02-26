@@ -10,6 +10,14 @@
   justify-content: flex-end;
 }
 
+.imagem{
+  display: flex;
+  flex-direction: column; /* Um embaixo do outro */
+  align-items: center; /* Centraliza na horizontal */
+  justify-content: center; /* Centraliza na vertical */
+  text-align: center;
+}
+
 .left-section {
   flex: 1;
   background-image: url('../peakpx.jpg');
