@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <div class="image-section"></div>
+      <div class="<img> foto-de-login"></div>
       <div class="form-section">
         <h1>Login</h1>
         <p>Preencha as informações abaixo para entrar como guia ou turista</p>

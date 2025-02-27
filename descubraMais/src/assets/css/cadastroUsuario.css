@@ -31,18 +31,18 @@
   text-align: center;
   padding: 1rem;
   color: white;
-}
+} 
 
-.texto-imgem-Tutulo {
-  top: 20%;
-  left: 7%;
+.texto-imagem-Titulo {
+  top: 43%;
+  left: 9%;
   width: 44%;
   font-family: Khmer;
   font-size: 20px;
 }
 
 
-.texto-imgem-Baixo {
+.texto-imagem-Baixo {
   top: 110%;
   left: 6%;
   width: 44%;
