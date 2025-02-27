@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import '../assets/css/HomeView.css'
+</script>
 <template>
   <main>
     <div class="ilha-das-cobras">

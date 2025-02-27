@@ -89,16 +89,16 @@ function handleSubmit() {
 </script>
 
 <template>
-  <div class="container">
+  <div class="cadastro-container">
     <div class="left-section">
 
     </div>
     <div class="right-section">
       <div class="form-header">
-        <h3 class="titulo">Cadastre o seu Ponto Turistico</h3>
-        <p class="texto">Preencha as informações abaixo para adicionar um ponto turistico</p>
+        <h3 class="titulo-form">Cadastre o seu Ponto Turistico</h3>
+        <p class="texto-form">Preencha as informações abaixo para adicionar um ponto turistico</p>
       </div>
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="handleSubmit" class="cadastro-form">
         <InputComponent name="nome" placeholder="Nome do Ponto Turistico" type="text" v-model="form.nome"/>
         <InputComponent name="informacoes" placeholder="Descrava o Ponto Turistico" type="text" v-model="form.informacoes"/>
         <select class="select-maior" v-model="form.tipoPontoTuristicoId">
@@ -139,112 +139,6 @@ function handleSubmit() {
   </div>
 </template>
 <style scoped>
-
-.container {
-  margin: 4% 9%;
-  display: flex;
-  height: 105vh;
-  font-family: 'Khmer', sans-serif;
-  justify-content: flex-end;
-}
-.left-section {
-  flex: 1;
-  background-image: url('../assets/imagem_ponto_turisticos.png');
-  background-size: cover;
-  background-position: center;
-  padding: 2rem;
-}
-.right-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 40px;
-  padding: 3rem;
-  background: #fff;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.button-continuar {
-  background-color: #F57C00;
-  color:black;
-  border: none;
-  width: 250px;
-  height: 40px;
-  margin-top: 50px;
-  border-radius: 25px;
-  padding: 5px 50px;
-  text-align: center;
-  font-size: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-}
-button:hover {
-  background-color: #e0a800;
-}
-.form-header{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.titulo {
-  color: #000;
-  text-align: center;
-  font-family: Roboto,serif;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.texto {
-  color: rgba(0, 0, 0, 0.85);
-  text-align: center;
-  font-family: Roboto,serif;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-}
- select{
-   display: flex;
-   width: 140px;
-   height: 41px;
-   padding: 0 8px;
-   margin-bottom: 20px;
-   align-items: center;
-   gap:-48px;
-   border-radius: 14px;
-   border: 1px solid #FFF;
-   background: #FFF;
-   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
-   color: #828181;
-   font-family: Roboto,serif;
-   font-size: 14px;
-   font-style: normal;
-   font-weight: 200;
-   line-height: 150%; /* 21px */
-   letter-spacing: -0.154px;
- }
- .select-maior{
-   width: 456px;
-   height: 41px;
- }
-option{
-  color: #828181;
-  font-family: Roboto,serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 150%; /* 21px */
-  letter-spacing: -0.154px;
-}
 .container-endereco{
   display: flex;
   gap: 18px;
