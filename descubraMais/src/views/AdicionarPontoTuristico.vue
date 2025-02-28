@@ -3,8 +3,10 @@ import InputComponent from '@/components/InputComponent.vue'
 import axios from "axios";
 import { ref, watch, onMounted} from "vue";
 import { useRouter } from 'vue-router'
+import AdicionarFotos from '@/components/AdicionarFotos.vue'
 
 const router = useRouter();
+const formData = new FormData()
 const form = ref({
   nome: '',
   tipoPontoTuristicoId: '',
@@ -13,7 +15,7 @@ const form = ref({
   cidade: '',
   estado: '',
   rua: '',
-  user:''
+  user:'',
 })
 
 //Variaveis para receber os dados da API
@@ -77,7 +79,12 @@ onMounted(()=>{
 function handleSubmit() {
   //Esse é um cpf de um usuário que já está cadastrado no banco de dados, é necessário um cadastramento previo
   form.value.user = "89512582031"
-  axios.post('http://localhost:8000/pontoturistico', form.value)
+  Object.entries(form.value).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+  axios.post('http://localhost:8000/pontoturistico', formData, {
+    headers: { "Content-Type": "multipart/form-data" }
+  })
     .then(() => {
       router.push('/')
     })
@@ -131,6 +138,9 @@ function handleSubmit() {
         </div>
         <InputComponent name="Rua" placeholder="Informe a Rua" type="text" v-model="form.rua"/>
 
+        <h2 class="sub-titulo-form">Adicione Fotos</h2>
+        <AdicionarFotos v-model="formData"/>
+
         <button class="button-continuar" type="submit">Cadastrar</button>
       </form>
     </div>
@@ -142,5 +152,8 @@ function handleSubmit() {
 .container-endereco{
   display: flex;
   gap: 18px;
+}
+.left-section{
+  background-image: url('../assets/imagem_ponto_turisticos.png');;
 }
 </style>

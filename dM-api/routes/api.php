@@ -25,6 +25,7 @@ $router->addRoute('POST', '/viajanteInteresses', 'InteresseViajanteController@st
 $router->addRoute('POST', '/pontoturistico', 'PontoTuristicoController@store');
 $router->addRoute('GET', '/pontoturistico', 'PontoTuristicoController@index');
 $router->addRoute('GET', '/pontoturistico/{id}', 'PontoTuristicoController@show');
+$router->addRoute('DELETE', '/pontoturistico/{id}', 'PontoTuristicoController@delete');
 
 //CRUD ROTEIRO TURISTICOS Routes
 $router->addRoute('GET', '/roteirosturistico', 'RoteiroTuristicoController@index');

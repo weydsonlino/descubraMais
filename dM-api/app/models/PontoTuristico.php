@@ -42,7 +42,7 @@ class PontoTuristico extends Model
             ];
         }
     }
-    public static function store($nome, $informacoes, $user, $pais, $cidade, $estado, $rua, $tipoPontoTuristicoId)
+    public static function store($nome, $informacoes, $user, $pais, $cidade, $estado, $rua, $tipoPontoTuristicoId, $imageUrls)
     {
         try {
 
@@ -77,6 +77,16 @@ class PontoTuristico extends Model
                 ":rua" => $rua,
                 ":pontoTuristicoId" => $pontoTuristicoId
             ]);
+
+            //Adicionando as imagens do Ponto Turistico
+            foreach ($imageUrls as $imageurl) {
+                $query = "INSERT INTO DM_IMAGEM_PONTO_TURISTICO (DM_PTT_ID, DM_IMAGEM) VALUES (:pontoTuristicoId, :imageurl)";
+                $stmt = $db->prepare($query);
+                $stmt->execute([
+                    ":pontoTuristicoId" => $pontoTuristicoId,
+                    ":imageurl" => $imageurl
+                ]);
+            }
 
             $db->commit();
 
@@ -126,6 +136,25 @@ class PontoTuristico extends Model
                 "error" => $e->getMessage()
             ];
         }
+    }
+    public static function delete($id)
+    {
+        $db = self::getDb();
+        $query = "DELETE FROM " . self::$table_name . " WHERE PTT_ID = :id";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ":id" => $id
+        ]);
+        if ($stmt->rowCount() > 0) {
+            return [
+                "message" => "Ponto turístico deletado com sucesso"
+            ];
+        } else {
+            return [
+                "message" => "Erro ao deletar ponto turístico"
+            ];
+        }
+
     }
 }
 
