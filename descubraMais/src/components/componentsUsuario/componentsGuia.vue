@@ -4,24 +4,24 @@
     <p class="texto">Seja um Guia ou apenas um viajante</p>
   </div>
   <form class="formPrincipal" @submit.prevent="handleSubmit">
-    <input type="text" class="valor" v-mask="'$ ###,##'" v-model="formData.valor" placeholder="Valor por hora"
+    <input type="text" class="input-padrao" v-mask="'$ ###,##'" v-model="formData.valor" placeholder="Valor por hora"
       required />
     <h4>Selecione suas regiões de atuação</h4>
     <p>Nome do país</p>
-    <select class="pais" v-model="formData.pais" required>
+    <select class="input-padrao" v-model="formData.pais" required>
       <option value="" disabled selected>Pais</option>
       <option v-for="pais in SelectPais" :key="pais.id" :value="pais.id">
         {{ pais.nome }}
       </option>
     </select>
     <div class="conteiner-estado_cidade">
-      <select class="estado" v-model="formData.estado" required>
+      <select class="input-padrao" v-model="formData.estado" required>
         <option value="" disabled selected>Estado</option>
         <option v-for="estado in jsonDadosEstados" :key="estado.id" :value="estado.id">
           {{ estado.nome }}
         </option>
       </select>
-      <select class="cidade" v-model="formData.cidade" required>
+      <select class="input-padrao" v-model="formData.cidade" required>
         <option value="" disabled selected>Cidade</option>
         <option v-for="cidade in filteredCidades" :key="cidade.id" :value="cidade.id">
           {{ cidade.nome }}
@@ -33,8 +33,8 @@
       :cidade="String(formData.cidade || '')" />
     <ItemList />
     <div class="conteiner-Bu_Co">
-      <button class="Button-Continuar" type="submit">Continuar</button>
-      <router-link class="Conta" to="/login">Já tem conta? Faça login</router-link>
+      <button class="button-continuar" type="submit">Continuar</button>
+      <button v-on:click="refazer" class="refazer">refazer cadastro</button>
     </div>
   </form>
 
@@ -43,14 +43,23 @@
 import { ref, computed, onMounted, watch } from "vue";
 import axios from "axios";
 import VueMask from "vue-the-mask";
-import "../../assets/css/cadastroGuia.css"
-// Store do usuário
+
+const props = defineProps({
+  userData: Object
+});
 // Estado do formulário
 const formData = ref({
-  valor: "",
-  pais: "",
-  estado: "",
-  cidade: "",
+  nome: props.userData?.name,
+  cpf: props.userData?.cpf,
+  sexo: props.userData?.gender,
+  telefone: props.userData?.phone,
+  senha: props.userData?.password,
+  tipo: props.userData?.role,
+  email: props.userData?.email,
+  rua: 'maria',
+  pais: '', // Inicializando o pais vazio
+  estado: '', // Inicializando o estado vazio
+  cidade: ''
 });
 
 // Dados das APIs
@@ -58,6 +67,18 @@ const jsonDadosPais = ref([]);
 const jsonDadosEstados = ref([]);
 const jsonDadosCidades = ref([]);
 
+//refazer os dados
+const refazer = () => {
+  window.location.reload();
+}
+const handleSubmit = async () => {
+  try {
+    const response = await axios.post("http://localhost:8000/cadastro", formData.value);
+    console.log("Resposta do servidor:", response.data);
+  } catch (error) {
+    console.error("Erro ao enviar os dados:", error);
+  }
+};
 // Funções para buscar dados externos
 const fetchPaises = async () => {
   try {

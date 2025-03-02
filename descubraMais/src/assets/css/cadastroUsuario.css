@@ -86,21 +86,6 @@
 
 }
 
-.cpf,
-.nome,
-.telefone,
-.tipoUSU,
-.sexo,
-.senha,
-.confirmar_senha {
-  border-radius: 10px;
-  margin: 0.1rem 0;
-  padding: 1rem;
-  background-color: #FFFFFF;
-  border: 2px solid #B0AFAF;
-  width: 602px;
-}
-
 .formPrincipal {
   display: flex; /* Deixa os inputs lado a lado */
   gap: 10px; /* Espaço entre os inputs */
@@ -119,33 +104,6 @@
   align-items: center; /* Alinha verticalmente */
   gap: 10px; /* Espaço entre os inputs */
   width: 296px;
-}
-
-
-.Button-Continuar {
-  background-color: #F57C00;
-  color:black;
-  border: none;
-  width: 321px;
-  height: 45px;
-  /* Alinha o botão à esquerda */
-  position: absolute;
-  /* Define a posição absoluta em relação ao contêiner pai */
-  border-radius: 25px;
-  padding: 5px 50px;
-  text-align: center;
-  font-size: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.Conta {
-  text-align: center;
-  margin-top: 59px;
-  color: black;
-}
-
-button:hover {
-  background-color: #e0a800;
 }
 
 .titulo {

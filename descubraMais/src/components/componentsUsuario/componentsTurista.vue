@@ -1,23 +1,22 @@
 <template>
-  <h3 class="titulo">Cadastro de Turista</h3>
-  <p class="texto">Preencha as informações abaixo para se cadastrar como turista</p>
+  <h3 class="titulo-form">Cadastro de Turista</h3>
+  <p class="texto-form">prencha as informações abaixo para se cadastrar como turista</p>
+  <form class="cadastro-form" @submit.prevent="handleSubmit">
+    <p class="texto-form">Selecione suas cidades/regiões de Interesse</p>
 
-  <form class="formPrincipal" @submit.prevent="handleSubmit">
-    <h4 class="tex">Selecione suas cidades/regiões de Interesse</h4>
-
-    <select class="pais" v-model="formData.pais" required>
+    <select class="input-padrao" v-model="formData.pais" required>
       <option value="" disabled>Pais</option>
       <option v-for="pais in SelectPais" :key="pais.id" :value="pais.id">{{ pais.nome }}</option>
     </select>
 
-    <select class="estado" v-model="formData.estado" required>
+    <select class="input-padrao" v-model="formData.estado" required>
       <option value="" disabled>Estado</option>
       <option v-for="estado in filteredEstados" :key="estado.id" :value="estado.id">
         {{ estado.nome }}
       </option>
     </select>
 
-    <select class="cidade" v-model="formData.cidade" required>
+    <select class="input-padrao" v-model="formData.cidade" required>
       <option value="" disabled>Cidade</option>
       <option v-for="cidade in filteredCidades" :key="cidade.id" :value="cidade.id">
         {{ cidade.nome }}
@@ -25,8 +24,8 @@
     </select>
 
     <div class="conteiner-Bu_Co">
-      <button class="Button-Continuar" type="submit">Continuar</button>
-      <router-link class="Conta" to="/login">Já tem conta? Faça login</router-link>
+      <button class="button-continuar" type="submit">Continuar</button>
+      <button v-on:click="refazer" class="refazer">refazer cadastro</button>
     </div>
 
   </form>
@@ -36,7 +35,6 @@
 import { ref, watch, computed, onMounted } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
-import "../../assets/css/cadastroTurista.css";
 
 // Definir propriedades e router
 const router = useRouter();
@@ -52,7 +50,7 @@ const formData = ref({
   telefone: props.userData?.phone,
   senha: props.userData?.password,
   tipo: props.userData?.role,
-  email: 'pokemon@gmail.com',
+  email: props.userData?.gmail,
   rua: 'maria',
   pais: '', // Inicializando o pais vazio
   estado: '', // Inicializando o estado vazio
@@ -66,6 +64,10 @@ const jsonDadosCidades = ref([]);
 const estados = ref([]);
 const cidades = ref([]);
 
+//button de refazer cadastro
+const refazer = () => {
+  window.location.reload();
+}
 // Função de envio de dados
 const handleSubmit = async () => {
   try {

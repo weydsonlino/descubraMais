@@ -110,7 +110,6 @@ button:hover {
   line-height: normal;
 }
 .texto-form {
-  color: rgba(0, 0, 0, 0.85);
   text-align: center;
   font-family: Roboto,serif;
   font-size: 13px;
@@ -150,4 +149,32 @@ option{
   font-weight: 200;
   line-height: 150%; /* 21px */
   letter-spacing: -0.154px;
+}
+
+.input-padrao{
+  display: flex;
+  width: 456px;
+  height: 40.53px;
+  padding: 0px 7.606px;
+  margin-bottom: 20px;
+  align-items: center;
+  gap: -48px;
+  border-radius: 14.262px;
+  border: 0.951px solid #FFF;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.refazer {
+  text-align: center;
+  margin-top: 55px;
+  color: black;
+}
+
+.conteiner-Bu_Co{
+  display: flex; /* Deixa os inputs lado a lado */
+  justify-content: center; /* Centraliza os inputs horizontalmente */
+  align-items: center; /* Alinha verticalmente */
+  gap: 10px; /* Espaço entre os inputs */
+  width: 296px;
 }

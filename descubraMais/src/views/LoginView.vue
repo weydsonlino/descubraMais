@@ -1,167 +1,101 @@
 <template>
-  <div>
-    <div class="container">
-      <div class="<img> foto-de-login"></div>
-      <div class="form-section">
-        <h1>Login</h1>
-        <p>Preencha as informações abaixo para entrar como guia ou turista</p>
-        <form @submit.prevent="login">
-          <div class="form-group">
-            <label for="email">Digite seu e-mail</label>
-            <input type="email" v-model="email" id="email" placeholder="Digite seu e-mail" />
-          </div>
-          <div class="form-group">
-            <label for="password">Digite sua senha</label>
-            <input type="password" v-model="password" id="password" placeholder="Digite sua senha" />
-          </div>
-          <button type="submit">Entrar</button>
-          <router-link to="/cadastro">Não tem uma conta? Cadastre-se agora!</router-link>
+  <div class="cadastro-container">
+    <div class="left-section">
+
+      <div class="form-header">
+        <h2>Crie sua Conta e Explore o Mundo com<br> Descubra Mais!</h2>
+      </div>
+      <div class="texto-imgem-Centro">
+        <p>Bem-vindo(a) ao Descubra Mais, sua plataforma para planejar viagens inesquecíveis.</p>
+      </div>
+      <div class="texto-imgem-Baixo">
+        <p>Cadastre-se agora e comece a explorar o mundo do seu jeito!</p>
+      </div>
+    </div>
+
+    <div class="right-section">
+      <!-- Formulário de Cadastro -->
+      <div v-if="formData.role === '' && isFormValid">
+        <h1 class="titulo-form">Login</h1>
+        <p class="texto-form">Preencha as informações abaixo para entrar como guia ou turista</p>
+
+        <form class="cadastro-form" @submit.prevent="handleSubmit">
+          <input type="email" v-model="email" class="input-padrao" placeholder="Digite seu Gmail"
+            pattern="[a-zA-Z0-9._%+-]+@gmail\.com" required />
+
+          <input :type="showPassword ? 'text' : 'password'" class="input-padrao" v-model="formData.senha"
+            placeholder="Digite sua senha" minlength="8" pattern="^(?=.*[0-9])(?=.*[\W_]).{8,}$" required />
+
+          <!-- olho da senha -->
+          <button type="button" @click="togglePassword">
+            <span v-if="showPassword">👁️</span>
+            <span v-else>👁️‍🗨️</span>
+          </button>
+
+          <button class="button-continuar" type="submit">Continuar</button>
+          <p class="C">Não tem uma conta? Cadastre-se agora!</p>
         </form>
       </div>
+      <Guia v-if="formData.role === 'GUIA' && isFormValid" :userData="formData" />
+      <Turista v-else-if="formData.role === 'VIAJANTE' && isFormValid" :userData="formData" />
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      email: '',
-      password: ''
-    };
-  },
-  methods: {
-    login() {
-      // Aqui vai a lógica de autenticação
-      console.log('Email:', this.email);
-      console.log('Password:', this.password);
-    }
+<script setup lang="ts">
+import axios from 'axios'
+import { ref } from 'vue'
+import "../assets/css/cadastroUsuario.css"
+import Guia from "../components/componentsUsuario/componentsGuia.vue"
+import Turista from "../components/componentsUsuario/componentsTurista.vue"
+
+
+const tipo = ref('');
+// Definir os dados do formulário
+const formData = ref({
+  name: '',
+  cpf: '',
+  gender: '',
+  phone: '',
+  password: '',
+  role: '', // Role será 'Guia' ou 'Turista'
+})
+
+
+
+const isFormValid = ref(true) // Começa como falso, para exibir o formulário inicialmente
+const imagemSelecionada = ref(null);
+
+// Para confirmar a senha
+const confirmPassword = ref('')
+// configuração do olho do input senha
+const showPassword = ref(false);
+
+const togglePassword = () => {
+  console.log("Estado atual:", showPassword.value);
+  showPassword.value = !showPassword.value;
+};
+
+//imagem do usuario
+const imagem_user = (event) => {
+  const arquivo = event.target.files[0]; // Pega o primeiro arquivo selecionado
+  if (arquivo) {
+    imagemSelecionada.value = URL.createObjectURL(arquivo);
   }
 };
+// Função para verificar e submeter o formulário
+const handleSubmit = () => {
+  if (tipo.value === 'GUIA') {
+    formData.value.role = 'GUIA';
+  } else if (tipo.value === 'VIAJANTE') {
+    formData.value.role = 'VIAJANTE';
+  } else {
+    alert("pereencha todos os camplos")
+  }
+  // Verificar se as senhas são iguais antes de enviar o formulário
+  if (formData.value.password !== confirmPassword.value) {
+    alert("As senhas não coincidem.");
+    return;
+  }
+}
 </script>
-
-<style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
-.container {
-  width: 80%;
-  max-width: 1200px;
-  display: flex;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.image-section {
-  flex: 1;
-  background-image: url('https://via.placeholder.com/600x800');
-  /* Substituir pelo caminho correto */
-  background-size: cover;
-  background-position: center;
-}
-
-.form-section {
-  flex: 1;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.form-section h1 {
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.form-section p {
-  color: #555;
-  margin-bottom: 30px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-.form-section button {
-  padding: 10px;
-  border: none;
-  background-color: #ff7e00;
-  color: white;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.form-section button:hover {
-  background-color: #e86c00;
-}
-
-.form-section a {
-  color: #007bff;
-  text-decoration: none;
-  margin-top: 10px;
-  display: inline-block;
-}
-
-.form-section a:hover {
-  text-decoration: underline;
-}
-
-.navbar {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  background-color: #004c99;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-}
-
-.navbar a:hover {
-  text-decoration: underline;
-}
-</style>
-

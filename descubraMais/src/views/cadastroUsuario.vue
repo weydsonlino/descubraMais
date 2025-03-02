@@ -1,19 +1,14 @@
 <template>
-  <div class="container">
+
+  <div class="cadastro-container">
     <div class="left-section">
-      <div class="texto-imgem-Tutulo">
-        <h2>Crie sua Conta e Explore o Mundo com<br> Descubra Mais!</h2>
-      </div>
-      <div class="texto-imgem-Centro">
-        <p>Bem-vindo(a) ao Descubra Mais, sua plataforma para planejar viagens inesquecíveis.</p>
-      </div>
-      <div class="texto-imgem-Baixo">
-        <p>Cadastre-se agora e comece a explorar o mundo do seu jeito!</p>
+      <div class="form-header">
+        <h3 class="titulo-form">Cadastre o seu Roteiro Turistico</h3>
+        <p class="texto-form">Preencha as informações abaixo para adicionar um Roteiro turistico</p>
       </div>
     </div>
 
-    <div class="right-section">
-      <!-- Formulário de Cadastro -->
+    <div class="right-section"> <!-- Formulário de Cadastro -->
       <div v-if="formData.role === '' && isFormValid">
         <h3 class="titulo">Cadastre-se</h3>
         <div class="imagem">
@@ -24,36 +19,41 @@
         </div>
         <p class="texto">Seja um Guia ou apenas um viajante</p>
 
-        <form class="formPrincipal" @submit.prevent="handleSubmit">
-          <input type="text" class="nome" v-model="formData.name" minlength="3" maxlength="100" placeholder="Nome"
+        <form class="cadastro-form" @submit.prevent="handleSubmit">
+          <input type="text" class="input-padrao" v-model="formData.name" minlength="3" maxlength="100"
+            placeholder="Nome" required />
+
+          <input type="email" v-model="formData.gmail" class="input-padrao" placeholder="Digite seu Gmail"
+            pattern="[a-zA-Z0-9._%+-]+@gmail\.com" required />
+
+
+          <input type="text" class="input-padrao" v-mask="'###.###.###-##'" v-model="formData.cpf" placeholder="CPF"
             required />
 
-          <input type="text" class="cpf" v-mask="'###.###.###-##'" v-model="formData.cpf" placeholder="CPF" required />
-
-          <select class="sexo" v-model="formData.gender" required>
+          <select class="input-padrao" v-model="formData.gender" required>
             <option value="" disabled selected>Sexo</option>
             <option value="M">Masculino</option>
             <option value="F">Feminino</option>
             <option value="O">Outros</option>
           </select>
 
-          <input class="telefone" v-mask="'(##)#####-####'" type="tel" v-model="formData.phone" placeholder="Telefone"
-            required />
+          <input class="input-padrao" v-mask="'(##)#####-####'" type="tel" v-model="formData.phone"
+            placeholder="Telefone" required />
 
           <div class="senha-container">
-            <input type="password" class="senha" v-model="formData.password" placeholder="Senha" required />
-            <input type="password" class="confirmar_senha" v-model="confirmPassword" placeholder="Confirmar Senha"
+            <input type="password" class="input-padrao" v-model="formData.password" placeholder="Senha" required />
+            <input type="password" class="input-padrao" v-model="confirmPassword" placeholder="Confirmar Senha"
               required />
           </div>
 
-          <select class="tipoUSU" v-model="tipo" required>
+          <select class="input-padrao" v-model="tipo" required>
             <option value="" disabled selected>O que você é?</option>
             <option value="GUIA">Guia</option>
             <option value="VIAJANTE">Turista</option>
           </select>
 
-          <button class="Button-Continuar" type="submit">Continuar</button>
-          <p class="C">Já tem conta? Faça login</p>
+          <button class="button-continuar" type="submit">Continuar</button>
+          <p class="Conta">Já tem conta? Faça login</p>
         </form>
       </div>
       <Guia v-if="formData.role === 'GUIA' && isFormValid" :userData="formData" />
@@ -75,6 +75,7 @@ const tipo = ref('');
 const formData = ref({
   name: '',
   cpf: '',
+  gmail: '',
   gender: '',
   phone: '',
   password: '',
