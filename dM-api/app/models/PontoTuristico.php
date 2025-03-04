@@ -139,22 +139,29 @@ class PontoTuristico extends Model
     }
     public static function delete($id)
     {
-        $db = self::getDb();
-        $query = "DELETE FROM " . self::$table_name . " WHERE PTT_ID = :id";
-        $stmt = $db->prepare($query);
-        $stmt->execute([
-            ":id" => $id
-        ]);
-        if ($stmt->rowCount() > 0) {
+        try {
+            $db = self::getDb();
+            $query = "DELETE FROM " . self::$table_name . " WHERE PTT_ID = :id";
+            $stmt = $db->prepare($query);
+            $stmt->execute([
+                ":id" => $id
+            ]);
+            if ($stmt->rowCount() > 0) {
+                return [
+                    "message" => "Ponto turístico deletado com sucesso"
+                ];
+            } else {
+                return [
+                    "error" => "erro ao deletar ponto turístico"
+                ];
+            }
+
+        } catch (Exception $e) {
             return [
-                "message" => "Ponto turístico deletado com sucesso"
-            ];
-        } else {
-            return [
-                "message" => "Erro ao deletar ponto turístico"
+                "message" => "erro ao deletar ponto turístico",
+                "error" => $e->getMessage()
             ];
         }
-
     }
 }
 

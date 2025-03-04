@@ -8,8 +8,8 @@ $router->addRoute('PUT', '/user', 'UserController@update');
 $router->addRoute('DELETE', '/user/{cpf}', 'UserController@delete');
 
 //Autenthicate Route
-$router->addRoute('POST', '/login', 'LoginController@login');
-$router->addRoute('POST', '/logout', 'LoginController@logout');
+$router->addRoute('POST', '/login', 'AuthenticationController@login');
+$router->addRoute('POST', '/logout', 'AuthenticationController@logout');
 
 //CRUD TPT Routes
 $router->addRoute('GET', '/tipospontoturistico', 'TipoPontoTuristicoController@index');

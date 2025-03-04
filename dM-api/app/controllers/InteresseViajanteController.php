@@ -7,7 +7,7 @@ class InteresseViajanteController extends Controller
 
     public function store()
     {
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = $this->getRequestBody();
         $ViajanteId = $data["viajanteId"];
         $TipoPontoTuristicoId = $data["tipoPontoTuristicoId"];
         $interesse = InteresseViajante::store($ViajanteId, $TipoPontoTuristicoId);

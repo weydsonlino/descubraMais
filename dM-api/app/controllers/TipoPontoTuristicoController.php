@@ -1,6 +1,7 @@
 <?php
 require_once 'app/models/TipoPontoTuristico.php';
 require_once 'core/Controller.php';
+require_once 'app/controllers/AuthenticationController.php';
 
 class TipoPontoTuristicoController extends Controller
 {
@@ -20,26 +21,41 @@ class TipoPontoTuristicoController extends Controller
     }
     public function store()
     {
-        $data = self::getRequestBody();
-        $nome = $data["nome"];
+        $check = $this->checkSession();
+        if ($check['error']) {
+            $this->respond($check, 401);
+        } else {
+            $data = self::getRequestBody();
+            $nome = $data["nome"];
 
-        $tipoPontoTuristico = TipoPontoTuristico::create($nome);
-        $this->respond($tipoPontoTuristico, 200);
+            $tipoPontoTuristico = TipoPontoTuristico::create($nome);
+            $this->respond($tipoPontoTuristico, 200);
+        }
     }
     public function update($id)
     {
-        $data = self::getRequestBody();
-        $nome = $data["nome"];
-        $tipoPontoTuristico = TipoPontoTuristico::update($id, $nome);
-        $this->respond($tipoPontoTuristico, 200);
+        $check = $this->checkSession();
+        if ($check['error']) {
+            $this->respond($check, 401);
+        } else {
+            $data = self::getRequestBody();
+            $nome = $data["nome"];
+            $tipoPontoTuristico = TipoPontoTuristico::update($id, $nome);
+            $this->respond($tipoPontoTuristico, 200);
+        }
     }
     public function delete($id)
     {
-        if ($id) {
-            $tipoPontoTuristico = TipoPontoTuristico::delete($id);
-            $this->respond($tipoPontoTuristico, 200);
+        $check = $this->checkSession();
+        if ($check['error']) {
+            $this->respond($check, 401);
         } else {
-            $this->respond(["error" => "Tipo de Ponto Turistico não econtrado"], 404);
+            if ($id) {
+                $tipoPontoTuristico = TipoPontoTuristico::delete($id);
+                $this->respond($tipoPontoTuristico, 200);
+            } else {
+                $this->respond(["error" => "Tipo de Ponto Turistico não econtrado"], 404);
+            }
         }
     }
 }

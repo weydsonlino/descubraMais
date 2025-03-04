@@ -107,9 +107,16 @@ class TipoPontoTuristico extends Model
                 ":id" => $id
             ]);
 
-            return [
-                "message" => "categoria deletada com sucesso"
-            ];
+            if ($stmt->rowCount() > 0) {
+                return [
+                    "message" => "Ponto turístico deletado com sucesso"
+                ];
+            } else {
+                return [
+                    "message" => "Erro ao deletar ponto turístico"
+                ];
+            }
+
         } catch (PDOException $e) {
             return [
                 "message" => "Erro ao deletar categoria" . $e->getMessage()

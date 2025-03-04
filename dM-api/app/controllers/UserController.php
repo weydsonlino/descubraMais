@@ -74,7 +74,9 @@ class UserController extends Controller
         $user = User::store($cpf, $nome, $email, $telefone, $senha, $sexo, $tipo, $valorServico, $tempoAtuacao, $pais, $estado, $cidade, $rua);
 
         // Retornar a resposta
-        echo json_encode($user);
+        $this->respond([
+            $user,
+        ], 201);
     }
     public function update()
     {
@@ -116,23 +118,23 @@ class UserController extends Controller
         $user = User::update($cpf, $nome, $email, $telefone, $senha, $sexo, $tipo, $valorServico, $tempoAtuacao);
 
         if (isset($user['erro'])) {
-            $this->respond(['error' => $user], 400);
+            $this->respond($user, 400);
         } else {
-            $this->respond([
-                'message' => "Sucesso ao atualizar usuario",
-                'data' => $user
-            ], 400);
+            $this->respond($user, 400);
         }
     }
     public function delete($cpf)
     {
-        $user = User::delete($cpf);
-        $this->respond(
-            [
-                'message' => 'Usuário deletado com sucesso',
-                'data' => $user
-            ],
-            200
-        );
+        $check = $this->checkSession();
+        if ($check['error']) {
+            $this->respond($check, 401);
+        } else {
+            if ($cpf) {
+                $user = User::delete($cpf);
+                $this->respond($user, 200);
+            } else {
+                $this->respond(['error' => 'CPF não encontrado'], 404);
+            }
+        }
     }
 }
