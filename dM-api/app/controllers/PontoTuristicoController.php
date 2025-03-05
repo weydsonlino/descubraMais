@@ -15,14 +15,10 @@ class PontoTuristicoController extends Controller
     }
     public function store()
     {
-        $check = json_decode(json_encode($this->checkSession()), true);
-        if ($check['error']) {
-            $this->respond($check, 401);
+        $token = json_decode(json_encode($this->checkSession()), true);
+        if ($token['error']) {
+            $this->respond($token, 401);
         } else {
-
-            $user = $check['user']['user_id'];
-
-
             $uploadDir = "uploads/";
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
@@ -48,7 +44,7 @@ class PontoTuristicoController extends Controller
             $estado = $_POST['estado'] ?? null;
             $rua = $_POST['rua'] ?? null;
             $informacoes = $_POST['informacoes'] ?? null;
-            //$user = $_POST['user'] ?? null;
+            $user = $token['user']['user_id'];
             $tipoPontoTuristicoId = $_POST['tipoPontoTuristicoId'] ?? null;
             $pontoTuristico = PontoTuristico::store($nome, $informacoes, $user, $pais, $cidade, $estado, $rua, $tipoPontoTuristicoId, $imageUrls, $user);
             if (isset($pontoTuristico['error'])) {

@@ -41,7 +41,7 @@ class UserController extends Controller
                 'estado' => v::stringType()->notEmpty()->setName('Estado'),
                 'cidade' => v::stringType()->notEmpty()->setName('Cidade'),
                 'rua' => v::stringType()->notEmpty()->setName('Rua'),
-                'guia' => v::arrayType()->notEmpty()->setName('Guia')->key('valorServico', v::floatType()->notEmpty()->setName('Valor do Serviço'))->key('tempoAtuacao', v::intType()->notEmpty()->setName('Tempo de Atuação')),
+                //'guia' => v::arrayType()->notEmpty()->setName('Guia')->key('valorServico', v::floatType()->notEmpty()->setName('Valor do Serviço'))->key('tempoAtuacao', v::intType()->notEmpty()->setName('Tempo de Atuação')),
             ];
         } else {
             $validationRules = [
