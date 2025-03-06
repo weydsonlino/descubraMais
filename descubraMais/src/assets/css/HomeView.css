@@ -289,7 +289,7 @@ input#search-bar {
   font-weight: bold;
 }
 
-h3 {
+.h3_algo {
   margin-left: 15%;
   width: 103%;
   height: 24%;

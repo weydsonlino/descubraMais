@@ -1,27 +1,24 @@
 <template>
-  <div class="conteiner-titolo_texto">
-    <h1 class="titulo">Cadastre-se</h1>
-    <p class="texto">Seja um Guia ou apenas um viajante</p>
-  </div>
-  <form class="formPrincipal" @submit.prevent="handleSubmit">
+  <h1 class="titulo">Cadastre-se</h1>
+  <p class="texto">Seja um Guia ou apenas um viajante</p>
+  <form class="cadastro-form" @submit.prevent="handleSubmit">
     <input type="text" class="input-padrao" v-mask="'$ ###,##'" v-model="formData.valor" placeholder="Valor por hora"
       required />
     <h4>Selecione suas regiões de atuação</h4>
-    <p>Nome do país</p>
     <select class="input-padrao" v-model="formData.pais" required>
       <option value="" disabled selected>Pais</option>
       <option v-for="pais in SelectPais" :key="pais.id" :value="pais.id">
         {{ pais.nome }}
       </option>
     </select>
-    <div class="conteiner-estado_cidade">
-      <select class="input-padrao" v-model="formData.estado" required>
+    <div class="container_lado-a-lado">
+      <select class="input_lado-a-lado" v-model="formData.estado" required>
         <option value="" disabled selected>Estado</option>
         <option v-for="estado in jsonDadosEstados" :key="estado.id" :value="estado.id">
           {{ estado.nome }}
         </option>
       </select>
-      <select class="input-padrao" v-model="formData.cidade" required>
+      <select class="input_lado-a-lado" v-model="formData.cidade" required>
         <option value="" disabled selected>Cidade</option>
         <option v-for="cidade in filteredCidades" :key="cidade.id" :value="cidade.id">
           {{ cidade.nome }}
@@ -34,7 +31,6 @@
     <ItemList />
     <div class="conteiner-Bu_Co">
       <button class="button-continuar" type="submit">Continuar</button>
-      <button v-on:click="refazer" class="refazer">refazer cadastro</button>
     </div>
   </form>
 

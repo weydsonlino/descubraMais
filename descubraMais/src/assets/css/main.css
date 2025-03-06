@@ -56,7 +56,7 @@
 }
 .left-section {
   flex: 1;
-  background-image: url('../assets/imagem_ponto_turisticos.png');
+  background-image: url('../../assets/imagem_do_cadastro.png');
   background-size: cover;
   background-position: center;
   padding: 2rem;
@@ -165,16 +165,43 @@ option{
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.refazer {
-  text-align: center;
-  margin-top: 55px;
-  color: black;
+.input_lado-a-lado{
+  display: flex;
+  width: 223px;
+  height: 40.53px;
+  padding: 0px 7.606px;
+  margin-bottom: 20px;
+  align-items: center;
+  gap: -48px;
+  border-radius: 14.262px;
+  border: 0.951px solid #FFF;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+.container_lado-a-lado{
+  display: flex; /* Ativa o Flexbox */
+  flex-direction: row; /* Mantém os itens em linha (padrão) */
+  align-items: center; /* Alinha os itens verticalmente no centro */
+  justify-content: center; /* Centraliza os itens horizontalmente */
+  gap: 10px; /* Espaçamento entre os elementos */
+  width: 100%; /* Faz o contêiner ocupar toda a largura disponível */
+}
 .conteiner-Bu_Co{
   display: flex; /* Deixa os inputs lado a lado */
   justify-content: center; /* Centraliza os inputs horizontalmente */
   align-items: center; /* Alinha verticalmente */
   gap: 10px; /* Espaço entre os inputs */
   width: 296px;
+}
+
+.titulo{
+display: flex;
+justify-content: center;
+align-items: center;
+  color: #000;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
 }

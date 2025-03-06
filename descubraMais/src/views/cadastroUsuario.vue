@@ -40,9 +40,9 @@
           <input class="input-padrao" v-mask="'(##)#####-####'" type="tel" v-model="formData.phone"
             placeholder="Telefone" required />
 
-          <div class="senha-container">
-            <input type="password" class="input-padrao" v-model="formData.password" placeholder="Senha" required />
-            <input type="password" class="input-padrao" v-model="confirmPassword" placeholder="Confirmar Senha"
+          <div class="container_lado-a-lado">
+            <input type="password" class="input_lado-a-lado" v-model="formData.password" placeholder="Senha" required />
+            <input type="password" class="input_lado-a-lado" v-model="confirmPassword" placeholder="Confirmar Senha"
               required />
           </div>
 

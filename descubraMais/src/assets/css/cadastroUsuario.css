@@ -18,13 +18,6 @@
   text-align: center;
 }
 
-.left-section {
-  flex: 1;
-  background-image: url('../peakpx.jpg');
-  background-size: cover;
-  background-position: center;
-  padding: 2rem;
-}
 .texto-imgem-Tutulo,
 .texto-imgem-Baixo {
   position: absolute;
