@@ -12,7 +12,6 @@
       <div v-if="formData.role === '' && isFormValid">
         <h3 class="titulo">Cadastre-se</h3>
         <div class="imagem">
-          <input type="file" @change="imagem_user" accept="image/*">
           <div v-if="imagemSelecionada">
             <img :src="imagemSelecionada" alt="Imagem do usuário" style="max-width: 300px;">
           </div>
@@ -25,7 +24,6 @@
 
           <input type="email" v-model="formData.gmail" class="input-padrao" placeholder="Digite seu Gmail"
             pattern="[a-zA-Z0-9._%+-]+@gmail\.com" required />
-
 
           <input type="text" class="input-padrao" v-mask="'###.###.###-##'" v-model="formData.cpf" placeholder="CPF"
             required />

@@ -205,3 +205,25 @@ align-items: center;
   font-style: normal;
   font-weight: 600;
 }
+
+.dropdown {
+  width: 600px;
+  height: 200px; /* Defina a altura desejada para o componente */
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto; /* Habilita a rolagem vertical */
+}
+
+
+.li_text {
+  display: flex;                  /* Flexbox para centralização */
+  justify-content: center;        /* Alinha horizontalmente (no eixo X) */
+  align-items: center;            /* Alinha verticalmente (no eixo Y) */
+  font-family: 'Montserrat';  /* Certifique-se de que a fonte está correta */
+  font-style: normal;
+  width: 100%;                    /* Define a largura como 100% do contêiner pai */
+  color: #000;
+  height: 100%;                   /* Define a altura como 100% do contêiner pai para centralização vertical completa */
+}
+
+
