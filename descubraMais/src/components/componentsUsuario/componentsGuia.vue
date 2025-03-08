@@ -6,45 +6,30 @@
       required />
 
     <h4>Selecione suas regiões de atuação</h4>
-
-    <!-- País -->
-    <select class="input-padrao" v-model="formData.pais" required :disabled="isLoadingPais">
-      <option value="" disabled selected>País</option>
-      <option v-for="pais in SelectPais" :key="pais.id" :value="pais.id">
-        {{ pais.nome }}
-      </option>
-    </select>
-    <p v-if="isLoadingPais">Carregando países...</p>
-
-    <!-- Estado -->
     <div class="container_lado-a-lado">
+      <!-- País -->
+
+      <select class="input_lado-a-lado" v-model="formData.pais" required :disabled="isLoadingPais">
+        <option value="" disabled selected>País</option>
+        <option v-for="pais in SelectPais" :key="pais.id" :value="pais.id">
+          {{ pais.nome }}
+        </option>
+      </select>
+
       <select class="input_lado-a-lado" v-model="formData.estado" required :disabled="isLoadingEstados">
         <option value="" disabled selected>Estado</option>
         <option v-for="estado in jsonDadosEstados" :key="estado.id" :value="estado.id">
           {{ estado.nome }}
         </option>
       </select>
-      <p v-if="isLoadingEstados">Carregando estados...</p>
-
-      <!-- Cidade -->
-      <select class="input_lado-a-lado" @change="addCidades">
-        <option value="" disabled selected>Cidade</option>
-        <option v-for="cidade in filteredCidades" :key="cidade.id" :value="cidade.id">
-          {{ cidade.nome }}
-        </option>
-      </select>
-      <p v-if="isLoadingCidades">Carregando cidades...</p>
     </div>
-    <h2>Regiões selecionadas</h2>
     <div class="dropdown">
-      <div>
-        <li class="li_text" v-for="(ponto, index) in estados_selecionados" :key="index">
-          {{ ponto.nome }}
-          <!-- Adicionando o ícone de "x" -->
-          <button type="button" @click="removeCidades(ponto.id)" class="remove-btn">x</button>
-        </li>
+      <div v-for="cidade in jsonDadosCidades" :key="cidade.id" class="checkbox-item">
+        <input type="checkbox" :id="'cidade-' + cidade.id" :value="cidade" v-model="estados_selecionados" />
+        <label class="li_text" :for="'cidade-' + cidade.id">{{ cidade.nome }}</label>
       </div>
     </div>
+
     <div class="conteiner-Bu_Co">
       <button class="button-continuar" type="submit">Continuar</button>
     </div>
@@ -83,14 +68,17 @@ const estados_selecionados = ref([]);
 const isEstado = ref(false);
 
 // Buscar países, estados e cidades
+
 const fetchPaises = async () => {
   try {
     const { data } = await axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/paises/");
+    console.log("Países recebidos:", data); // Verifica a estrutura dos países
     jsonDadosPais.value = data;
   } catch (error) {
     console.error("Erro ao carregar os países:", error);
   }
 };
+
 
 const fetchEstados = async () => {
   try {
@@ -112,26 +100,6 @@ const fetchCidades = async (estadoId: string | number) => {
   } catch (error) {
     console.error("Erro ao carregar as cidades:", error);
   } finally {
-  }
-};
-
-// Adicionar cidades selecionadas
-const addCidades = (event: Event) => {
-  const cidadeId = (event.target as HTMLSelectElement).value;
-  const selectedCidade = jsonDadosCidades.value.find(cidade => cidade.id.toString() === cidadeId);
-
-  if (selectedCidade && !estados_selecionados.value.some(cidade => cidade.id === selectedCidade.id)) {
-    estados_selecionados.value.push(selectedCidade);
-    formData.value.cidade.push(selectedCidade); // Adiciona a cidade no formData
-  }
-};
-
-// deleta cidades selecionadas
-const removeCidades = (cidadeId: number) => {
-  const cidadeIndex = estados_selecionados.value.findIndex(cidade => cidade.id === cidadeId);
-  if (cidadeIndex !== -1) {
-    estados_selecionados.value.splice(cidadeIndex, 1);
-    formData.value.cidade = formData.value.cidade.filter(cidade => cidade.id !== cidadeId);
   }
 };
 
@@ -162,8 +130,12 @@ onMounted(() => {
 });
 
 // Computed para selecionar países e cidades
+
 const SelectPais = computed(() =>
-  jsonDadosPais.value.map((pais: any) => ({ id: pais.id, nome: pais.nome.abreviado }))
+  jsonDadosPais.value.map((pais: any) => ({
+    id: pais.M49, // O ID correto é "M49"
+    nome: pais.nome // O nome já está correto
+  }))
 );
 
 const filteredCidades = computed(() =>
@@ -172,19 +144,3 @@ const filteredCidades = computed(() =>
   )
 );
 </script>
-
-
-<style scoped>
-.remove-btn {
-  background: none;
-  border: none;
-  color: red;
-  font-size: 16px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.remove-btn:hover {
-  color: darkred;
-}
-</style>
