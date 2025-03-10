@@ -36,4 +36,7 @@ $router->addRoute('PUT', '/roteiroturistico/{id}', 'RoteiroTuristicoController@u
 
 //CRUD Regiao Routes
 $router->addRoute('POST', '/regiao', 'RegiaoController@store');
+
+//Rotas de Pesquisa
+$router->addRoute('GET', '/pesquisa/{nome}', 'PesquisaController@pesquisa');
 ?>
