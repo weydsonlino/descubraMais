@@ -1,12 +1,14 @@
 <template>
-  <h3 class="titulo-form">Cadastro de Turista</h3>
-  <p class="texto-form">prencha as informações abaixo para se cadastrar como turista</p>
+  <div class="container_titulo">
+    <h3 class="titulo-form">Cadastro de Turista</h3>
+    <p class="texto-form">prencha as informações abaixo para se cadastrar como turista</p>
+  </div>
   <form class="cadastro-form" @submit.prevent="handleSubmit">
     <p class="texto-form">Selecione suas cidades/regiões de Interesse</p>
 
     <select class="input-padrao" v-model="formData.pais" required>
       <option value="" disabled>Pais</option>
-      <option v-for="pais in SelectPais" :key="pais.id" :value="pais.id">{{ pais.nome }}</option>
+      <option v-for="pais in SelectPais" :key="pais.M49" :value="pais.M49">{{ pais.nome }}</option>
     </select>
 
     <select class="input-padrao" v-model="formData.estado" required>
@@ -22,12 +24,7 @@
         {{ cidade.nome }}
       </option>
     </select>
-
-    <div class="conteiner-Bu_Co">
-      <button class="button-continuar" type="submit">Continuar</button>
-      <button v-on:click="refazer" class="refazer">refazer cadastro</button>
-    </div>
-
+    <button class="button-continuar" type="submit">Continuar</button>
   </form>
 </template>
 
@@ -64,10 +61,6 @@ const jsonDadosCidades = ref([]);
 const estados = ref([]);
 const cidades = ref([]);
 
-//button de refazer cadastro
-const refazer = () => {
-  window.location.reload();
-}
 // Função de envio de dados
 const handleSubmit = async () => {
   try {
@@ -133,7 +126,7 @@ watch(
 );
 
 // Computed para os países
-const SelectPais = computed(() => jsonDadosPais.value.map((pais) => ({ id: pais.id, nome: pais.nome })));
+const SelectPais = computed(() => jsonDadosPais.value.map((pais) => ({ M49: pais.M49, nome: pais.nome })));
 
 // Computed para filtrar os estados com base no país
 const filteredEstados = computed(() => jsonDadosEstados.value.filter((estado) => formData.value.pais ? estado.id.startsWith(formData.value.pais) : true));

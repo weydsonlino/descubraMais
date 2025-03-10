@@ -10,13 +10,11 @@
 
     <div class="right-section"> <!-- Formulário de Cadastro -->
       <div v-if="formData.role === '' && isFormValid">
-        <h3 class="titulo">Cadastre-se</h3>
-        <div class="imagem">
-          <div v-if="imagemSelecionada">
-            <img :src="imagemSelecionada" alt="Imagem do usuário" style="max-width: 300px;">
-          </div>
+
+        <div class="container_titulo">
+          <h1 class="titulo">Cadastre-se</h1>
+          <p>Seja um Guia ou apenas um viajante</p>
         </div>
-        <p class="texto">Seja um Guia ou apenas um viajante</p>
 
         <form class="cadastro-form" @submit.prevent="handleSubmit">
           <input type="text" class="input-padrao" v-model="formData.name" minlength="3" maxlength="100"
@@ -51,7 +49,6 @@
           </select>
 
           <button class="button-continuar" type="submit">Continuar</button>
-          <p class="Conta">Já tem conta? Faça login</p>
         </form>
       </div>
       <Guia v-if="formData.role === 'GUIA' && isFormValid" :userData="formData" />

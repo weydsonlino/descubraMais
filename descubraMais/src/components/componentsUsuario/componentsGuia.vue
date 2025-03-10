@@ -1,32 +1,35 @@
 <template>
-  <h1 class="titulo">Cadastre-se</h1>
-  <p class="texto">Seja um Guia ou apenas um viajante</p>
+  <div class="container_titulo">
+    <h1 class="titulo">Cadastro de Guia</h1>
+    <p>Preencha as informações abaixo para se cadastrar como guia.</p>
+  </div>
   <form class="cadastro-form" @submit.prevent="handleSubmit">
     <input type="text" class="input-padrao" v-mask="'$ ###,##'" v-model="formData.valor" placeholder="Valor por hora"
       required />
 
     <h4>Selecione suas regiões de atuação</h4>
-    <div class="container_lado-a-lado">
-      <!-- País -->
 
-      <select class="input_lado-a-lado" v-model="formData.pais" required :disabled="isLoadingPais">
-        <option value="" disabled selected>País</option>
-        <option v-for="pais in SelectPais" :key="pais.id" :value="pais.id">
-          {{ pais.nome }}
-        </option>
-      </select>
+    <select class="input-padrao" v-model="formData.pais" required :disabled="isLoadingPais">
+      <option value="" disabled selected>País</option>
+      <option v-for="pais in SelectPais" :key="pais.id" :value="pais.id">
+        {{ pais.nome }}
+      </option>
+    </select>
 
-      <select class="input_lado-a-lado" v-model="formData.estado" required :disabled="isLoadingEstados">
-        <option value="" disabled selected>Estado</option>
-        <option v-for="estado in jsonDadosEstados" :key="estado.id" :value="estado.id">
-          {{ estado.nome }}
-        </option>
-      </select>
-    </div>
+    <select class="input-padrao" v-model="formData.estado" required :disabled="isLoadingEstados">
+      <option value="" disabled selected>Estado</option>
+      <option v-for="estado in jsonDadosEstados" :key="estado.id" :value="estado.id">
+        {{ estado.nome }}
+      </option>
+    </select>
+
     <div class="dropdown">
       <div v-for="cidade in jsonDadosCidades" :key="cidade.id" class="checkbox-item">
-        <input type="checkbox" :id="'cidade-' + cidade.id" :value="cidade" v-model="estados_selecionados" />
-        <label class="li_text" :for="'cidade-' + cidade.id">{{ cidade.nome }}</label>
+        <label class="checkbox-label">
+          {{ cidade.nome }}
+          <input type="checkbox" :id="'cidade-' + cidade.id" :value="cidade" v-model="estados_selecionados" />
+          <span class="checkmark"></span>
+        </label>
       </div>
     </div>
 

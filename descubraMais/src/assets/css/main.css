@@ -80,14 +80,13 @@
 }
 .button-continuar {
   background-color: #F57C00;
-  color:black;
+  align-items: center;
   border: none;
   width: 250px;
   height: 40px;
   margin-top: 25px;
   border-radius: 25px;
   padding: 5px 50px;
-  text-align: center;
   font-size: 20px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -101,7 +100,26 @@ button:hover {
   gap: 10px;
 }
 .titulo-form {
+  color: #000;.titulo, .texto {
+  display: block; /* Garante que os elementos fiquem um abaixo do outro */
+  text-align: center; /* Centraliza o texto horizontalmente */
+  margin: 0; /* Remove margens padrão */
+}
+
+.titulo {
   color: #000;
+  font-family: Montserrat, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.texto {
+  color: #666;
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  margin-top: 8px; /* Dá um espaçamento entre o título e o texto */
+}
+
   text-align: center;
   font-family: Roboto,serif;
   font-size: 32px;
@@ -179,6 +197,17 @@ option{
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+.input-senha{
+  width: 456px;
+  height: 40.53px;
+  padding: 0px 7.606px;
+  margin-bottom: 20px;
+  border-radius: 14.262px;
+  border: 0.951px solid #FFF;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
 .container_lado-a-lado{
   display: flex; /* Ativa o Flexbox */
   flex-direction: row; /* Mantém os itens em linha (padrão) */
@@ -187,6 +216,7 @@ option{
   gap: 10px; /* Espaçamento entre os elementos */
   width: 100%; /* Faz o contêiner ocupar toda a largura disponível */
 }
+
 .conteiner-Bu_Co{
   display: flex; /* Deixa os inputs lado a lado */
   justify-content: center; /* Centraliza os inputs horizontalmente */
@@ -195,40 +225,133 @@ option{
   width: 296px;
 }
 
-.titulo{
-display: flex;
-justify-content: center;
-align-items: center;
+
+.container_titulo {
+  position: absolute;
+  top: 23%;  /* Coloca a caixa no meio da altura */
+  left: 70%;  /* Coloca a caixa no meio da largura */
+  transform: translate(-50%, -50%);  /* Ajusta para centralizar perfeitamente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;  /* Garante que o contêiner ocupe toda a largura disponível */
+}
+
+.cadastro-container {
+    margin: 2% 9%;
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+    font-family: 'Khmer', sans-serif;
+}
+
+.titulo {
+  display: block;
+  text-align: center;
+  margin: 0;
+  padding: 0;
   color: #000;
-  font-family: Montserrat;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
-  font-style: normal;
   font-weight: 600;
 }
 
+
 .dropdown {
-  width: 600px;
-  height: 200px; /* Defina a altura desejada para o componente */
-  border: 1px solid #ccc;
-  padding: 10px;
-  overflow-y: auto; /* Habilita a rolagem vertical */
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    width: 400px;
+    background-color: white;
+    max-height: 200px; /* Limita a altura da lista */
+    overflow-y: auto; /* Permite rolagem quando o conteúdo excede o limite */
+}
+
+/* Personalização da barra de rolagem */
+.dropdown::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 4px;
 }
 
 
 .checkbox-item {
-  display: flex;
-  align-items: center;  /* Alinha verticalmente */
-  justify-content: center;  /* Centraliza horizontalmente */
-  gap: 8px; /* Espaço entre o checkbox e o texto */
-  width: 100%; /* Garante que ocupe toda a largura disponível */
+    padding: 0;
+}
+
+/* Estilização das linhas divisórias */
+.checkbox-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #ddd; /* Linha divisória */
+}
+
+/* Remove a linha divisória do último item */
+.checkbox-item:last-child .checkbox-label {
+    border-bottom: none;
+}
+
+.checkbox-label:hover {
+    background-color: #f5f5f5;
+}
+
+.checkbox-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    display: inline-block;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.checkbox-label input:checked + .checkmark {
+    background-color: #333;
+    border-color: #333;
+}
+
+.checkbox-label input:checked + .checkmark::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
 
 
-.li_text {
-  font-family: 'Montserrat', sans-serif;
-  font-style: normal;
-  color: #000;
+.olhos {
+  color: ;
+  width: 25px;
+  height: 20px;
+  margin-left: -5px; /* Desloca a imagem para a esquerda */
 }
 
+.link-cadastro {
+  text-decoration: none; /* Remove o sublinhado */
+  color: inherit; /* Remove a cor azul e herda a cor do texto padrão */
+  display: block; /* Faz com que o link ocupe toda a largura disponível */
+  text-align: center; /* Centraliza o link horizontalmente */
+  margin-top: 10px; /* Adiciona um espaçamento entre o botão e o link */
+}
 
-
+.link-cadastro:hover{
+  color: #F57C00;
+}
