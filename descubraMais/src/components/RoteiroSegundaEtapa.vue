@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import axios from "axios"
-import { onMounted, ref, defineProps, defineEmits } from 'vue'
+import { onMounted, ref } from 'vue'
+import InputComponent from '@/components/InputComponent.vue'
 
-const props = defineProps(['modelValue'])
-const emit = defineEmits(['update:modelValue'], ['previus'])
+defineProps(['modelValue'])
 
 const pontosTuristico = ref<{ id: number; nome: string }[]>([]);
-
+const pesquisa = ref('')
 async function axiosPontos(){
   try{
     const response = await axios.get('http://localhost:8000/pontoturistico');
@@ -15,19 +15,6 @@ async function axiosPontos(){
     console.error("Erro ao carregar os tipos:", error);
   }
 }
-
-const addPonto = (event: Event) => {
-  const selectedId = (event.target as HTMLSelectElement).value
-
-  const selectedPonto = pontosTuristico.value.find(ponto => ponto.id.toString() === selectedId)
-  if (selectedPonto && !props.modelValue.pontosTuristicos.some(ponto => ponto.id === selectedPonto.id)) {
-    emit('update:modelValue', {
-      ...props.modelValue,
-      pontoTuristico: [...props.modelValue.pontosTuristicos, selectedPonto] // Agora armazenamos { id, nome }
-    })
-  }
-}
-
 onMounted(()=> {
   axiosPontos();
 })
@@ -35,17 +22,40 @@ onMounted(()=> {
 </script>
 
 <template>
-  <select class="select-maior" @change="addPonto">
-    <option value="">Escolha os Pontos Turistico da sua rota</option>
-    <option v-for="ponto in pontosTuristico" :key="ponto.id" :value="ponto.id">{{ponto.nome}} </option>
-  </select>
-  <ul>
-    <li v-for="(ponto, index) in modelValue.pontoTuristico" :key="index">
-      {{ ponto.nome }}
-    </li>
-  </ul>
+
+  <InputComponent placeholder="Pesquise o ponto Turistico" type="search" v-model="modelValue.pesquisa"/>
+  <div v-if="modelValue.pesquisa" class="container-checkbox" >
+      <div v-for="ponto in pontosTuristico" :key="ponto.id" class="checkbox" >
+        <label :for="ponto.id">
+          {{ ponto.nome }}
+        </label>
+        <input type="checkbox" :name="ponto.id" :value="ponto.id" v-model="modelValue.pontosTuristicos" />
+      </div>
+    </div>
 </template>
 
 <style scoped>
-
+.container-checkbox{
+  display: flex;
+  width: 456px;
+  height: 146px;
+  padding: 0px 10px;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: 5px 5px 0px 0px;
+  border: 1px solid #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.checkbox{
+  display: flex;
+  justify-content: space-between;
+  width: 456px;
+  padding: 10px 30px;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+  }
 </style>

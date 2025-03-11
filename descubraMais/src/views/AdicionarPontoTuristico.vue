@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ref, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import AdicionarFotos from '@/components/AdicionarFotos.vue'
+import useAuth from '@/auth/auth.ts'
 
 const router = useRouter()
 const formData = new FormData()
@@ -78,9 +79,7 @@ onMounted(() => {
 })
 
 //Envia os dados para a API
-function handleSubmit() {
-  //Esse é um cpf de um usuário que já está cadastrado no banco de dados, é necessário um cadastramento previo
-  form.value.user = '89512582031'
+async function handleSubmit() {
   Object.entries(form.value).forEach(([key, value]) => {
     formData.append(key, value)
   })
@@ -150,8 +149,6 @@ function handleSubmit() {
         <InputComponent name="Rua" placeholder="Informe a Rua" type="text" v-model="form.rua" />
 
         <h2 class="sub-titulo-form">Adicione Fotos</h2>
-        <AdicionarFotos v-model="formData" />
-
         <AdicionarFotos v-model="formData" />
         <div class="button-container">
           <button class="button-continuar" type="submit">Cadastrar</button>

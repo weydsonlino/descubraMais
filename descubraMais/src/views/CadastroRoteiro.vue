@@ -9,17 +9,16 @@ const router = useRouter()
 
 const etapa = ref('primeiraEtapa')
 const form = ref({
-  cpf:'',
+  pesquisa:'',
   nome:'',
-  visibilidade: 'Publico',
-  categoria: [],
+  visibilidade: '',
+  categorias: [],
   dificuldade:'',
   informacoes:'',
   pontosTuristicos: []
 })
 
 const handleSubmit = () => {
-  form.value.cpf = "89512582031"
   axios.post('http://localhost:8000/roteirosturistico', form.value)
     .then(() => {
       router.push('/')
@@ -29,7 +28,7 @@ const handleSubmit = () => {
     });
 }
 
-watch(() => etapa.value, () => {
+watch(() => form.value, () => {
   console.log(form.value)
 });
 
@@ -46,7 +45,7 @@ watch(() => etapa.value, () => {
       </div>
       <form @submit.prevent="handleSubmit" class="cadastro-form">
         <RoteiroPrimeiraEtapa v-if="etapa === 'primeiraEtapa'" v-model="form" @next="etapa ='segundaEtapa'"/>
-        <RoteiroSegundaEtapa v-if="etapa === 'segundaEtapa'" v-model="form" @previus="etapa ='primeiraEtapa'"/>
+        <RoteiroSegundaEtapa v-if="etapa === 'segundaEtapa'" v-model="form" />
         <button class="button-continuar" v-if="etapa === 'segundaEtapa'" type="submit">Cadastrar</button>
       </form>
     </div>
