@@ -49,7 +49,7 @@ class RoteiroTuristico extends Model
             ];
         }
     }
-    public static function store($nome, $visibilidade, $informacoes, $cpf, $pontosTuristicos)
+    public static function store($nome, $visibilidade, $informacoes, $user, $pontosTuristicos)
     {
         try {
             $db = self::getDb();
@@ -60,7 +60,7 @@ class RoteiroTuristico extends Model
                 ":nome" => $nome,
                 ":visibilidade" => $visibilidade,
                 ":informacoes" => $informacoes,
-                ":cpf" => $cpf
+                ":cpf" => $user
             ]);
             $roteiro = $db->lastInsertId();
             $query = "INSERT INTO DM_RTT_PTT (DM_RTT_ID, DM_PTT_ID, DM_RTT_PTT_ORDEM) VALUES (:roteiro, :ponto, :ordem)";
@@ -86,7 +86,7 @@ class RoteiroTuristico extends Model
             ];
         }
     }
-    public static function update($id, $nome, $visibilidade, $informacoes, $cpf, $pontosTuristicos)
+    public static function update($id, $nome, $visibilidade, $informacoes, $user, $pontosTuristicos)
     {
         try {
             $db = self::getDb();
@@ -102,7 +102,7 @@ class RoteiroTuristico extends Model
                 ":nome" => $nome,
                 ":visibilidade" => $visibilidade,
                 ":informacoes" => $informacoes,
-                ":cpf" => $cpf
+                ":cpf" => $user
             ]);
             $query = "UPDATE DM_RTT_PTT SET DM_PTT_ID = :ponto, DM_RTT_PTT_ORDEM = :ordem WHERE DM_RTT_ID = :id";
             $stmt = $db->prepare($query);

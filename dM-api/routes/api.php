@@ -12,11 +12,11 @@ $router->addRoute('POST', '/login', 'AuthenticationController@login');
 $router->addRoute('POST', '/logout', 'AuthenticationController@logout');
 
 //CRUD TPT Routes
-$router->addRoute('GET', '/tipospontoturistico', 'TipoPontoTuristicoController@index');
-$router->addRoute('GET', '/tipopontoturistico/{id}', 'TipoPontoTuristicoController@getOne');
-$router->addRoute('POST', '/tipopontoturistico', 'TipoPontoTuristicoController@store');
-$router->addRoute('PUT', '/tipopontoturistico/{id}', 'TipoPontoTuristicoController@update');
-$router->addRoute('DELETE', '/tipopontoturistico/{id}', 'TipoPontoTuristicoController@delete');
+$router->addRoute('GET', '/tipospontosturisticos', 'TipoPontoTuristicoController@index');
+$router->addRoute('GET', '/tipospontosturisticos/{id}', 'TipoPontoTuristicoController@getOne');
+$router->addRoute('POST', '/tipospontosturisticos', 'TipoPontoTuristicoController@store');
+$router->addRoute('PUT', '/tipospontosturisticos/{id}', 'TipoPontoTuristicoController@update');
+$router->addRoute('DELETE', '/tipospontosturisticos/{id}', 'TipoPontoTuristicoController@delete');
 
 //CRUD Interesses Viajantes Routes
 $router->addRoute('POST', '/viajanteInteresses', 'InteresseViajanteController@store');

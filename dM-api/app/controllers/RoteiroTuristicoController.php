@@ -22,17 +22,17 @@ class RoteiroTuristicoController extends Controller
     }
     public function store()
     {
-        $check = $this->checkSession();
-        if (isset($check["error"])) {
-            $this->respond($check, 401);
+        $token = $this->checkSession();
+        if (isset($token["error"])) {
+            $this->respond($token, 401);
         } else {
             $data = $this->getRequestBody();
             $nome = $data["nome"];
             $visibilidade = $data["visibilidade"];
             $informacoes = $data["informacoes"];
-            $cpf = $data["cpf"];
+            $user = $token['user']['user_id'];
             $pontosTuristicos = $data["pontosTuristicos"];
-            $roteiroTuristico = RoteiroTuristico::store($nome, $visibilidade, $informacoes, $cpf, $pontosTuristicos);
+            $roteiroTuristico = RoteiroTuristico::store($nome, $visibilidade, $informacoes, $user, $pontosTuristicos);
             if (isset($roteiroTuristico["error"])) {
                 $this->respond($roteiroTuristico, 400);
             }
@@ -43,9 +43,9 @@ class RoteiroTuristicoController extends Controller
 
     public function delete($id)
     {
-        $check = $this->checkSession();
-        if (isset($check["error"])) {
-            $this->respond($check, 401);
+        $token = $this->checkSession();
+        if (isset($token["error"])) {
+            $this->respond($token, 401);
         } else {
             if (isset($id)) {
                 $roteiroTuristico = RoteiroTuristico::delete($id);
@@ -60,18 +60,18 @@ class RoteiroTuristicoController extends Controller
     }
     public function update($id)
     {
-        $check = $this->checkSession();
-        if (isset($check["error"])) {
-            $this->respond($check, 401);
+        $token = $this->checkSession();
+        if (isset($token["error"])) {
+            $this->respond($token, 401);
         } else {
             $data = $this->getRequestBody();
             $nome = $data["nome"];
             $visibilidade = $data["visibilidade"];
             $informacoes = $data["informacoes"];
-            $cpf = $data["cpf"];
+            $user = $token['user']['user_id'];
             $pontosTuristicos = $data["pontosTuristicos"];
 
-            $roteiroTuristico = RoteiroTuristico::update($id, $nome, $visibilidade, $informacoes, $cpf, $pontosTuristicos);
+            $roteiroTuristico = RoteiroTuristico::update($id, $nome, $visibilidade, $informacoes, $user, $pontosTuristicos);
             if (isset($roteiroTuristico["error"])) {
                 $this->respond($roteiroTuristico, 400);
             }
