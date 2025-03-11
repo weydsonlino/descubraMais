@@ -1,6 +1,8 @@
 import axios from 'axios'
 class useAuth{
-    private static token = localStorage.getItem('token')
+    private static get token() {
+      return localStorage.getItem('token')
+    }
     private static api = axios.create({
     baseURL: 'http://localhost:8000', // Defina a URL base do seu backend
     headers: {
@@ -9,17 +11,30 @@ class useAuth{
     },
 
     });
-    public static async axiosWithAuth (endpoint, options = {}){
+    public static async axiosWithAuth(
+      endpoint: string,
+      options: {
+        method?: string
+        data?: any
+        headers?: Record<string, string>
+      } = {},
+    ) {
       try {
+        // Adicionar o token atualizado nos headers antes da requisição
+        const authHeaders = useAuth.token
+          ? { Authorization: `Bearer ${useAuth.token}` }
+          : {}
+
         const response = await this.api({
           url: endpoint,
           method: options.method || 'GET',
           data: options.data || null,
-          headers: headers.data || null,
-        });
-        return response.data;
+          headers: { ...authHeaders, ...options.headers },
+        })
+
+        return response.data
       } catch (error) {
-        throw error.response ? error.response.data.message : 'Erro na requisição';
+        throw error.response ? error.response.data.message : 'Erro na requisição'
       }
     }
     public static async login(form){
