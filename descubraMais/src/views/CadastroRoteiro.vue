@@ -20,12 +20,12 @@ const form = ref({
 })
 
 async function axiosRoteiro(){
-  const payload = JSON.parse(JSON.stringify(form.value)); // Remove qualquer reatividade do Vue
-  console.log(payload)
+  /*const payload = JSON.parse(JSON.stringify(form.value)); // Remove qualquer reatividade do Vue
+  console.log(payload)*/
   try {
     const response = await useAuth.axiosWithAuth('/roteirosturisticos', {
       method: 'POST',
-      data: payload
+      data: form.value
     })
     console.log(response)
   }catch (error){
@@ -49,8 +49,12 @@ watch(() => form.value, () => {
 
     </div>
     <div class="right-section">
-      <div class="form-header">
+      <div class="form-header" v-if="etapa == 'primeiraEtapa'">
         <h3 class="titulo-form">Cadastre o seu Roteiro Turistico</h3>
+        <p class="texto-form">Preencha as informações abaixo para adicionar um Roteiro turistico</p>
+      </div>
+      <div class="form-header" v-if="etapa == 'segundaEtapa'">
+        <h3 class="titulo-form">Adcione fotos e Pontos Turisticos</h3>
         <p class="texto-form">Preencha as informações abaixo para adicionar um Roteiro turistico</p>
       </div>
       <form @submit.prevent="handleSubmit" class="cadastro-form">

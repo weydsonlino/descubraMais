@@ -23,7 +23,7 @@ const router = createRouter({
       component: () => import('../views/cadastroUsuario.vue'),
     },
     {
-      path: '/adicionarPontoTuristico',
+      path: '/cadastropontoturistico',
       name: 'AdicionarPontoTuristico',
       component: () => import('../views/AdicionarPontoTuristico.vue'),
     },
@@ -33,8 +33,8 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue'),
     },
     {
-      path: '/cadastroRoteiro',
-      name: 'cadastroRoteiro',
+      path: '/cadastroroteiro',
+      name: 'cadastroroteiro',
       component: () => import('../views/CadastroRoteiro.vue'),
     },
     {
