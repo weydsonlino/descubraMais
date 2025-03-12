@@ -29,12 +29,12 @@ class useAuth{
           url: endpoint,
           method: options.method || 'GET',
           data: options.data || null,
-          headers: { ...authHeaders, ...options.headers },
+          headers: { ...authHeaders, ...options.headers } || null,
         })
 
         return response.data
       } catch (error) {
-        throw error.response ? error.response.data.message : 'Erro na requisição'
+        throw error.response ? error.response.data.message : `Erro na requisição ${error}`
       }
     }
     public static async login(form){

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import axios from "axios"
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import RoteiroPrimeiraEtapa from '@/components/RoteiroPrimeiraEtapa.vue'
 import RoteiroSegundaEtapa from '@/components/RoteiroSegundaEtapa.vue'
+import useAuth from '@/auth/auth.ts'
 
 const router = useRouter()
 
@@ -15,17 +15,27 @@ const form = ref({
   categorias: [],
   dificuldade:'',
   informacoes:'',
-  pontosTuristicos: []
+  pontosTuristicos: [],
+  imagens: []
 })
 
-const handleSubmit = () => {
-  axios.post('http://localhost:8000/roteirosturistico', form.value)
-    .then(() => {
-      router.push('/')
+async function axiosRoteiro(){
+  const payload = JSON.parse(JSON.stringify(form.value)); // Remove qualquer reatividade do Vue
+  console.log(payload)
+  try {
+    const response = await useAuth.axiosWithAuth('/roteirosturisticos', {
+      method: 'POST',
+      data: payload
     })
-    .catch((error) => {
-      console.error('Erro ao cadastrar ponto turistico:', error);
-    });
+    console.log(response)
+  }catch (error){
+    console.log(error)
+  }
+}
+
+const handleSubmit = () => {
+  console.log(form)
+  axiosRoteiro()
 }
 
 watch(() => form.value, () => {

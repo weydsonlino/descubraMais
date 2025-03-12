@@ -22,17 +22,18 @@ class RoteiroTuristicoController extends Controller
     }
     public function store()
     {
-        $token = $this->checkSession();
-        if (isset($token["error"])) {
+        $token = json_decode(json_encode($this->checkSession()), true);
+        if ($token['error']) {
             $this->respond($token, 401);
         } else {
             $data = $this->getRequestBody();
-            $nome = $data["nome"];
-            $visibilidade = $data["visibilidade"];
-            $informacoes = $data["informacoes"];
-            $user = $token['user']['user_id'];
-            $pontosTuristicos = $data["pontosTuristicos"];
-            $roteiroTuristico = RoteiroTuristico::store($nome, $visibilidade, $informacoes, $user, $pontosTuristicos);
+            $nome = $data["nome"] ?? null;
+            $visibilidade = $data["visibilidade"] ?? null;
+            $informacoes = $data["informacoes"] ?? null;
+            $user = $token['user']['user_id'] ?? null;
+            $pontosTuristicos = $data["pontosTuristicos"] ?? null;
+            $imagens = $data["imagens"] ?? null;
+            $roteiroTuristico = RoteiroTuristico::store($nome, $visibilidade, $informacoes, $user, $pontosTuristicos, $imagens);
             if (isset($roteiroTuristico["error"])) {
                 $this->respond($roteiroTuristico, 400);
             }
@@ -40,6 +41,7 @@ class RoteiroTuristicoController extends Controller
         }
 
     }
+
 
     public function delete($id)
     {

@@ -1,14 +1,24 @@
 <script setup lang="ts">
 import '../assets/css/HomeView.css'
 import componentsCards from '@/components/componentsCards.vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const queryPesquisa = ref('')
+const performSearch = () => {
+  if (queryPesquisa.value.trim()) {
+    router.push({ name: 'pesquisa', query: { nome: queryPesquisa.value } });
+  }
+};
 </script>
 <template>
   <main>
     <div class="ilha-das-cobras">
-      <input type="text" id="search-bar" placeholder="Para onde você quer ir hoje ?">
+      <input type="text" id="search-bar" placeholder="Para onde você quer ir hoje ?" v-model="queryPesquisa">
       <a href="#">
         <img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"
-          alt="Ícone de busca">
+          alt="Ícone de busca" @click="performSearch">
       </a>
     </div>
 

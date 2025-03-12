@@ -49,10 +49,11 @@ class RoteiroTuristico extends Model
             ];
         }
     }
-    public static function store($nome, $visibilidade, $informacoes, $user, $pontosTuristicos)
+    public static function store($nome, $visibilidade, $informacoes, $user, $pontosTuristicos, $imagens)
     {
         try {
             $db = self::getDb();
+            $ordem = 1;
             $db->beginTransaction();
             $query = "INSERT INTO " . self::$table_name . " (RTT_NOME, RTT_VISIBILIDADE, RTT_DESCRICAO, DM_USU_CPF) VALUES (:nome, :visibilidade, :informacoes, :cpf)";
             $stmt = $db->prepare($query);
@@ -68,8 +69,17 @@ class RoteiroTuristico extends Model
             foreach ($pontosTuristicos as $ponto) {
                 $stmt->execute([
                     ":roteiro" => $roteiro,
-                    ":ponto" => (int) $ponto["id"],  // Garantindo que seja um número inteiro
-                    ":ordem" => (int) $ponto["ordem"]
+                    ":ponto" => (int) $ponto,  // Garantindo que seja um número inteiro
+                    ":ordem" => (int) $ordem
+                ]);
+                $ordem++;
+            }
+            $query = "INSERT INTO DM_IMAGEM_ROTEIRO_TURISTICO (DM_RTT_ID, IRT_IMAGE) VALUES (:roteiro, :imagem)";
+            $stmt = $db->prepare($query);
+            foreach ($imagens as $imagem) {
+                $stmt->execute([
+                    ":roteiro" => $roteiro,
+                    ":imagem" => $imagem
                 ]);
             }
 

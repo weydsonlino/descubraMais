@@ -4,7 +4,6 @@ use Respect\Validation\Rules\Unique;
 
 require_once "core/Controller.php";
 require_once "app/models/PontoTuristico.php";
-require_once 'app/controllers/AuthenticationController.php';
 
 class PontoTuristicoController extends Controller
 {
@@ -19,7 +18,7 @@ class PontoTuristicoController extends Controller
         if ($token['error']) {
             $this->respond($token, 401);
         } else {
-            $uploadDir = "uploads/";
+            /* $uploadDir = "public/uploads/";
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
@@ -33,10 +32,12 @@ class PontoTuristicoController extends Controller
                     $uploadPath = $uploadDir . $fileName;
 
                     if (move_uploaded_file($tmpName, $uploadPath)) {
-                        $imageUrls[] = "http://localhost:8000/uploads/" . $fileName;
+                        $imageUrls[] = "http://localhost:8000/public/uploads/" . $fileName;
                     }
                 }
             }
+
+
 
             $nome = $_POST['nome'] ?? null;
             $pais = $_POST['pais'] ?? null;
@@ -45,11 +46,20 @@ class PontoTuristicoController extends Controller
             $rua = $_POST['rua'] ?? null;
             $informacoes = $_POST['informacoes'] ?? null;
             $user = $token['user']['user_id'];
-            $tipoPontoTuristicoId = $_POST['tipoPontoTuristicoId'] ?? null;
-            $pontoTuristico = PontoTuristico::store($nome, $informacoes, $user, $pais, $cidade, $estado, $rua, $tipoPontoTuristicoId, $imageUrls, $user);
+            $tipoPontoTuristicoId = $_POST['tipoPontoTuristicoId'] ?? null; */
+            $data = $this->getRequestBody();
+            $nome = $data['nome'] ?? null;
+            $pais = $data['pais'] ?? null;
+            $cidade = $data['cidade'] ?? null;
+            $estado = $data['estado'] ?? null;
+            $rua = $data['rua'] ?? null;
+            $informacoes = $data['informacoes'] ?? null;
+            $user = $token['user']['user_id'];
+            $tipoPontoTuristicoId = $data['tipoPontoTuristicoId'] ?? null;
+            $imageUrls = $data['imagens'] ?? null;
+            $pontoTuristico = PontoTuristico::store($nome, $informacoes, $user, $pais, $cidade, $estado, $rua, $tipoPontoTuristicoId, $imageUrls);
             if (isset($pontoTuristico['error'])) {
                 $this->respond([
-                    'message' => 'Erro ao cadastrar ponto turístico',
                     $pontoTuristico,
                 ], 500);
             } else {

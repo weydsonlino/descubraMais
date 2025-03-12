@@ -22,21 +22,21 @@ $router->addRoute('DELETE', '/tipospontosturisticos/{id}', 'TipoPontoTuristicoCo
 $router->addRoute('POST', '/viajanteInteresses', 'InteresseViajanteController@store');
 
 //CRUD Ponto Turistico Routes
-$router->addRoute('POST', '/pontoturistico', 'PontoTuristicoController@store');
-$router->addRoute('GET', '/pontoturistico', 'PontoTuristicoController@index');
-$router->addRoute('GET', '/pontoturistico/{id}', 'PontoTuristicoController@show');
-$router->addRoute('DELETE', '/pontoturistico/{id}', 'PontoTuristicoController@delete');
+$router->addRoute('POST', '/pontosturisticos', 'PontoTuristicoController@store');
+$router->addRoute('GET', '/pontosturisticos', 'PontoTuristicoController@index');
+$router->addRoute('GET', '/pontosturisticos/{id}', 'PontoTuristicoController@show');
+$router->addRoute('DELETE', '/pontosturisticos/{id}', 'PontoTuristicoController@delete');
 
 //CRUD ROTEIRO TURISTICOS Routes
-$router->addRoute('GET', '/roteirosturistico', 'RoteiroTuristicoController@index');
-$router->addRoute('GET', '/roteirosturistico/{id}', 'RoteiroTuristicoController@getOne');
-$router->addRoute('POST', '/roteirosturistico', 'RoteiroTuristicoController@store');
-$router->addRoute('DELETE', '/roteirosturistico/{id}', 'RoteiroTuristicoController@delete');
-$router->addRoute('PUT', '/roteiroturistico/{id}', 'RoteiroTuristicoController@update');
+$router->addRoute('GET', '/roteirosturisticos', 'RoteiroTuristicoController@index');
+$router->addRoute('GET', '/roteirosturisticos/{id}', 'RoteiroTuristicoController@getOne');
+$router->addRoute('POST', '/roteirosturisticos', 'RoteiroTuristicoController@store');
+$router->addRoute('DELETE', '/roteirosturisticos/{id}', 'RoteiroTuristicoController@delete');
+$router->addRoute('PUT', '/roteirosturisticos/{id}', 'RoteiroTuristicoController@update');
 
 //CRUD Regiao Routes
 $router->addRoute('POST', '/regiao', 'RegiaoController@store');
 
 //Rotas de Pesquisa
-$router->addRoute('GET', '/pesquisa/{nome}', 'PesquisaController@pesquisa');
+$router->addRoute('GET', '/pesquisa', 'PesquisaController@pesquisa');
 ?>

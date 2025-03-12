@@ -13,19 +13,25 @@ class Router
 
     public function dispatch($requestMethod, $requestUri)
     {
+        // Remove query params da URL (deixa apenas o caminho)
+        $pathOnly = parse_url($requestUri, PHP_URL_PATH);
+
         foreach ($this->routes as $route) {
-            // Constrói um padrão regex para a rota
+            // Cria um padrão regex para a rota
             $pattern = "@^" . $route['path'] . "$@";
 
-            if ($route['method'] === $requestMethod && preg_match($pattern, $requestUri, $matches)) {
-                // Remove os índices numéricos capturados pela regex
+            if ($route['method'] === $requestMethod && preg_match($pattern, $pathOnly, $matches)) {
+                // Captura apenas os parâmetros nomeados
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+
+                // Inclui os query parameters como parte dos parâmetros
+                $params = array_merge($params, $_GET);
 
                 // Carrega o controlador e chama o método, passando os parâmetros
                 list($controller, $method) = explode('@', $route['action']);
                 require_once "app/controllers/$controller.php";
                 $controllerInstance = new $controller();
-                return call_user_func_array([$controllerInstance, $method], $params);
+                return call_user_func_array([$controllerInstance, $method], [$params]); // Passando como array
             }
         }
 
@@ -33,4 +39,5 @@ class Router
         http_response_code(404);
         echo json_encode(['message' => 'Route not found']);
     }
+
 }

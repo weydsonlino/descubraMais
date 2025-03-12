@@ -1,21 +1,33 @@
 <script setup lang="ts">
-import {  ref } from 'vue'
-const props = defineProps(['modelValue'])
+import { ref } from 'vue';
 
-const images = ref<File[]>([]);
+const props = defineProps(['modelValue']);
+const images = ref<string[]>([]); // Agora armazenamos as imagens como Base64
 
-const handleFileUpload = (event) => {
-  const files = event.target.files;
+const handleFileUpload = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  if (!input.files) return;
+
+  const files = Array.from(input.files);
 
   for (const file of files) {
     const reader = new FileReader();
 
     reader.onload = (e) => {
-      images.value.push(e.target.result); // Adiciona a imagem ao array
-      props.modelValue.append("imagens[]", file);
+      const base64Image = e.target?.result as string; // Converte a imagem para Base64
+      images.value.push(base64Image); // Adiciona a imagem ao array
+
+      // Se props.modelValue for um array, adiciona a Base64 diretamente
+      if (Array.isArray(props.modelValue)) {
+        props.modelValue.push(base64Image);
+      }
+      // Se props.modelValue for um FormData, você precisa enviar como texto
+      else if (props.modelValue instanceof FormData) {
+        props.modelValue.append("imagens[]", base64Image);
+      }
     };
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file); // Converte o arquivo para Base64
   }
 };
 </script>
@@ -23,10 +35,10 @@ const handleFileUpload = (event) => {
 <template>
   <div class="container-add-imagem">
     <label for="upload" class="upload-label">
-      <img src="../assets/addImage.png" alt="Adicionar imagem" class="add-imagem"  />
+      <img src="../assets/addImage.png" alt="Adicionar imagem" class="add-imagem" />
     </label>
-    <input type="file" id="upload" accept="image/*" multiple hidden @change="handleFileUpload">
-      <img v-for="(img, index) in images" :key="index" :src="img" alt="Imagem adicionada" class="add-imagem" />
+    <input type="file" id="upload" accept="image/*" multiple hidden @change="handleFileUpload" />
+    <img v-for="(img, index) in images" :key="index" :src="img" alt="Imagem adicionada" class="add-imagem" />
   </div>
 </template>
 

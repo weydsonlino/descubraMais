@@ -17,6 +17,7 @@ const form = ref({
   estado: '',
   rua: '',
   user: '',
+  imagens: []
 })
 
 //Variaveis para receber os dados da API
@@ -28,7 +29,7 @@ const cidades = ref<{ id: string; nome: string }[]>([])
 //Pegandos tipos existentes no banco de dados, é necessário um cadastramento previo
 async function axiosTipos() {
   try {
-    const response = await useAuth.axiosWithAuth('/tipospontoturistico')
+    const response = await useAuth.axiosWithAuth('/tipospontosturisticos')
     tipos.value = response.data
     console.log(tipos.value)
   } catch (error) {
@@ -68,33 +69,30 @@ async function axiosCidades() {
     console.error('Erro ao carregar as cidades:', error)
   }
 }
-//Observadores para carregar estados e cidades dinamicamente, parecido com UseEffect do React
-watch(() => form.value.pais, axiosEstados)
-watch(() => form.value.estado, axiosCidades)
+  //Observadores para carregar estados e cidades dinamicamente, parecido com UseEffect do React
+  watch(() => form.value.pais, axiosEstados)
+  watch(() => form.value.estado, axiosCidades)
 
-// Chama as funções ao montar o componente
-onMounted(() => {
-  axiosPais()
-  axiosTipos()
-})
-
-//Envia os dados para a API
-async function handleSubmit() {
-  Object.entries(form.value).forEach(([key, value]) => {
-    formData.append(key, value)
+  // Chama as funções ao montar o componente
+  onMounted(() => {
+    axiosPais()
+    axiosTipos()
   })
-  try {
-    const reponse = await useAuth.axiosWithAuth('/pontoturistico', {
-      method: 'POST',
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-    console.log(reponse)
-    router.push('/')
-  } catch (error) {
-    console.log(error)
+
+  //Envia os dados para a API
+  async function handleSubmit() {
+    console.log(form.value)
+    try {
+      const reponse = await useAuth.axiosWithAuth('/pontosturisticos', {
+        method: 'POST',
+        data: form.value,
+      })
+      console.log(reponse)
+      router.push('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
-}
 </script>
 
 <template>
@@ -149,14 +147,13 @@ async function handleSubmit() {
         <InputComponent name="Rua" placeholder="Informe a Rua" type="text" v-model="form.rua" />
 
         <h2 class="sub-titulo-form">Adicione Fotos</h2>
-        <AdicionarFotos v-model="formData" />
+        <AdicionarFotos v-model="form.imagens" />
         <div class="button-container">
           <button class="button-continuar" type="submit">Cadastrar</button>
         </div>
       </form>
     </div>
   </div>
-  <div></div>
 </template>
 <style scoped>
 .container-endereco {

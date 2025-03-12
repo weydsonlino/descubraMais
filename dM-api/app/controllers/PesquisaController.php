@@ -7,8 +7,12 @@ class PesquisaController extends Controller
 {
     public function pesquisa($nome)
     {
-        $resultado = Pesquisa::buscarPorNome($nome);
-        $this->respond(["message" => 'dados encontrados para ' . $nome, $resultado], 200);
+        $queryParams = $_GET;
+        if (isset($queryParams)) {
+            $nome = $queryParams['nome'] ?? null;
+            $resultado = Pesquisa::buscarPorNome($nome);
+            $this->respond($resultado, 200);
+        }
     }
 }
 
