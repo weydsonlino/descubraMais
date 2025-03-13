@@ -14,6 +14,18 @@ class PesquisaController extends Controller
             $this->respond($resultado, 200);
         }
     }
+    //provisorio
+    public function index()
+    {
+        $resultado = Pesquisa::index();
+        $this->respond($resultado, 200);
+    }
+    public function getOne($id)
+    {
+        $id = $id['id'];
+        $resultado = Pesquisa::getOne($id);
+        $this->respond($resultado, 200);
+    }
 }
 
 ?>

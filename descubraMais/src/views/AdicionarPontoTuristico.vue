@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import InputComponent from '@/components/InputComponent.vue'
 import axios from 'axios'
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, resolveDirective } from 'vue'
 import { useRouter } from 'vue-router'
 import AdicionarFotos from '@/components/AdicionarFotos.vue'
 import useAuth from '@/auth/auth.ts'
+import PopUpComponent from '@/components/PopUpComponent.vue'
 
 const router = useRouter()
 const formData = new FormData()
@@ -25,6 +26,10 @@ const tipos = ref<{ id: number; nome: string }[]>([])
 const paises = ref<{ id: string; nome: string }[]>([])
 const estados = ref<{ id: string; nome: string }[]>([])
 const cidades = ref<{ id: string; nome: string }[]>([])
+//Variaveis para o popup
+const state = ref({})
+const type = ref('')
+const show = ref(false)
 
 //Pegandos tipos existentes no banco de dados, é necessário um cadastramento previo
 async function axiosTipos() {
@@ -69,6 +74,12 @@ async function axiosCidades() {
     console.error('Erro ao carregar as cidades:', error)
   }
 }
+function statesPopUp(){
+  if (state.value.sucess == true){
+    show.value = true
+    type.value = 'success'
+  }
+}
   //Observadores para carregar estados e cidades dinamicamente, parecido com UseEffect do React
   watch(() => form.value.pais, axiosEstados)
   watch(() => form.value.estado, axiosCidades)
@@ -83,12 +94,13 @@ async function axiosCidades() {
   async function handleSubmit() {
     console.log(form.value)
     try {
-      const reponse = await useAuth.axiosWithAuth('/pontosturisticos', {
+      const response = await useAuth.axiosWithAuth('/pontosturisticos', {
         method: 'POST',
         data: form.value,
       })
-      console.log(reponse)
-      router.push('/')
+      state.value = response
+      statesPopUp()
+      //router.push('/')
     } catch (error) {
       console.log(error)
     }
@@ -96,6 +108,7 @@ async function axiosCidades() {
 </script>
 
 <template>
+  <PopUpComponent :message=state.message :show=show :type=type />
   <div class="cadastro-container">
     <div class="left-section"></div>
     <div class="right-section">

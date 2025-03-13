@@ -51,6 +51,66 @@ class Pesquisa extends Model
         }
 
     }
+    public static function index()
+    {
+        try {
+            $db = self::getDb();
+
+            $query = "SELECT DM_PONTO_TURISTICO.PTT_ID AS ID, DM_PONTO_TURISTICO.PTT_NOME AS NOME, DM_PONTO_TURISTICO.PTT_INFORMACOES AS INFORMACOES, MIN(DM_IMAGEM_PONTO_TURISTICO.DM_IMAGEM) AS IMAGEM
+                    FROM DM_PONTO_TURISTICO, DM_IMAGEM_PONTO_TURISTICO
+                    WHERE DM_IMAGEM_PONTO_TURISTICO.DM_PTT_ID = DM_PONTO_TURISTICO.PTT_ID
+                    GROUP BY DM_PONTO_TURISTICO.PTT_ID, DM_PONTO_TURISTICO.PTT_NOME, DM_PONTO_TURISTICO.PTT_INFORMACOES
+                    LIMIT 10";
+
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            $pontosTuristicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $pontosTuristicos;
+
+        } catch (Exception $e) {
+            return [
+                "message" => "Erro ao buscar pontos turísticos",
+                "error" => $e->getMessage()
+            ];
+        }
+    }
+    public static function getOne($id)
+    {
+        try {
+            $db = self::getDb();
+
+            $query = "SELECT
+                    DM_PONTO_TURISTICO.PTT_ID AS ID, 
+                    DM_PONTO_TURISTICO.PTT_NOME AS NOME, 
+                    DM_PONTO_TURISTICO.PTT_INFORMACOES AS INFORMACOES,
+                    DM_TIPO_PONTO_TURISTICO.TPT_NOME AS TIPO,
+                    DM_IMAGEM_PONTO_TURISTICO.DM_IMAGEM AS IMAGEM
+                FROM DM_PONTO_TURISTICO
+                LEFT JOIN DM_IMAGEM_PONTO_TURISTICO 
+                    ON DM_IMAGEM_PONTO_TURISTICO.DM_PTT_ID = DM_PONTO_TURISTICO.PTT_ID
+                LEFT JOIN DM_PTT_TPT 
+                    ON DM_PTT_TPT.DM_PTT_ID = DM_PONTO_TURISTICO.PTT_ID 
+                LEFT JOIN DM_TIPO_PONTO_TURISTICO 
+                    ON DM_TIPO_PONTO_TURISTICO.TPT_ID = DM_PTT_TPT.DM_TPT_ID
+                WHERE DM_PONTO_TURISTICO.PTT_ID = :id
+                ";
+
+            $stmt = $db->prepare($query);
+            $stmt->execute([
+                ':id' => $id
+            ]);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+
+        } catch (Exception $e) {
+            return [
+                "message" => "Erro ao buscar pontos turísticos",
+                "error" => $e->getMessage()
+            ];
+        }
+    }
 }
 
 ?>

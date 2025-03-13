@@ -1,16 +1,31 @@
 <script setup lang="ts">
 import '../assets/css/HomeView.css'
 import componentsCards from '@/components/componentsCards.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import useAuth from '@/auth/auth.ts'
 
 const router = useRouter()
 const queryPesquisa = ref('')
+const pontosTuristico = ref([])
 const performSearch = () => {
   if (queryPesquisa.value.trim()) {
     router.push({ name: 'pesquisa', query: { nome: queryPesquisa.value } });
   }
 };
+
+async function axiosPontos(){
+  try {
+    const response = await  useAuth.axiosWithAuth('/pesquisacompleta',{method:'GET'})
+    pontosTuristico.value = response
+    console.log(pontosTuristico.value)
+  }catch{
+
+  }
+}
+onMounted(()=>{
+  axiosPontos()
+})
 </script>
 <template>
   <main>
@@ -32,18 +47,8 @@ const performSearch = () => {
     <div class="conhea-alguns-pontos-famosos-parent">
       <div class="conhea-alguns-pontos">Conheça Alguns Pontos Famosos</div>
       <div class="container">
-        <componentsCards imagem="src/assets/maragogi.png" titulo="Maragogi - Alagoas (AL)"
-          descricao="Maragogi está localizado no estado de Alagoas, no litoral nordeste do Brasil. Famoso por suas piscinas naturais e águas cristalinas, é um destino popular para mergulhos. A cidade está a cerca de 125 km de Maceió e a 135 km de Recife." />
-        <componentsCards imagem="src/assets/lencois.png" titulo="Lençóis Maranhenses - Barreirinhas (MA)"
-          descricao="Os Lençóis Maranhenses ficam no estado do Maranhão, no nordeste do Brasil. O acesso principal é pela cidade de Barreirinhas, que está a aproximadamente 250 km de São Luís, a capital do estado.." />
-        <componentsCards imagem="src/assets/noronha.png" titulo="Fernando de Noronha (PE)"
-          descricao="Fernando de Noronha é um arquipélago de Pernambuco, localizado a 350 km da costa nordeste do Brasil. Famoso por suas praias paradisíacas, oferece um ambiente único com águas cristalinas e rica vida marinha. O local é ideal para quem gosta de ecoturismo e atividades como mergulho." />
-        <componentsCards imagem="src/assets/cristo.png" titulo="Cristo Redentor - Rio de Janeiro (RJ)"
-          descricao="Localizado no topo do Morro do Corcovado, o Cristo Redentor fica dentro do Parque Nacional da Tijuca, no bairro do Cosme Velho, Zona Sul do Rio de Janeiro." />
-        <componentsCards imagem="src/assets/cataratas.png" titulo="Cataratas do Iguaçu - Foz do Iguaçu (PR)"
-          descricao="Está localizadas no Parque Nacional do Iguaçu, na cidade de Foz do Iguaçu, estado do Paraná (PR), Brasil. São um dos maiores conjuntos de quedas d'água do mundo e uma das Sete Maravilhas Naturais." />
-        <componentsCards imagem="src/assets/portodegalinhas.png" titulo="Porto de Galinhas (PE)"
-          descricao="Porto de Galinhas, que fica localizado no município de Ipojuca, no estado de Pernambuco (PE), a cerca de 60 km de Recife." />
+        <componentsCards v-for="ponto in pontosTuristico" :imagem=ponto.IMAGEM :titulo=ponto.NOME
+          :descricao=ponto.INFORMACOES />
       </div>
     </div>
     <div class="rectangle-div">

@@ -39,4 +39,6 @@ $router->addRoute('POST', '/regiao', 'RegiaoController@store');
 
 //Rotas de Pesquisa
 $router->addRoute('GET', '/pesquisa', 'PesquisaController@pesquisa');
+$router->addRoute('GET', '/pesquisacompleta', 'PesquisaController@index');
+$router->addRoute('GET', '/pesquisa/{id}', 'PesquisaController@getOne');
 ?>

@@ -22,7 +22,7 @@ class AuthenticationController extends Controller
         if ($user && password_verify($senha, $user['senha'])) {
             $payload = [
                 'iat' => time(),
-                'exp' => time() + (60 * 60),
+                'exp' => time() + (120 * 120),
                 'data' => [
                     'user_id' => $user['cpf'],
                     'user_name' => $user['nome']

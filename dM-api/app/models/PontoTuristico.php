@@ -124,7 +124,7 @@ class PontoTuristico extends Model
             $stmt->execute([
                 ":id" => $id
             ]);
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return [
                 "message" => "Ponto turístico buscado com sucesso",
                 "data" => $result

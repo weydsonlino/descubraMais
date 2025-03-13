@@ -35,9 +35,16 @@ class RoteiroTuristicoController extends Controller
             $imagens = $data["imagens"] ?? null;
             $roteiroTuristico = RoteiroTuristico::store($nome, $visibilidade, $informacoes, $user, $pontosTuristicos, $imagens);
             if (isset($roteiroTuristico["error"])) {
-                $this->respond($roteiroTuristico, 400);
+                $this->respond([
+                    'message' => 'Erro ao cadastra Roteiro turístico',
+                    'sucess' => false,
+                ], 201);
+            } else {
+                $this->respond([
+                    'message' => 'Roteiro turístico cadastrado com sucesso',
+                    'sucess' => true,
+                ], 201);
             }
-            $this->respond($roteiroTuristico, 200);
         }
 
     }

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
-
 const token = ref('')
 token.value = localStorage.getItem('token');
 const showDropdown = ref(false);

@@ -7,7 +7,7 @@ import AdicionarFotos from '@/components/AdicionarFotos.vue'
 defineProps(['modelValue'])
 
 const pontosTuristico = ref<{ id: number; nome: string }[]>([]);
-const pesquisa = ref('')
+//const pesquisa = ref('')
 async function axiosPontos(){
   try{
     const response = await axios.get('http://localhost:8000/pontosturisticos');
@@ -23,9 +23,10 @@ onMounted(()=> {
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <AdicionarFotos v-model="modelValue.imagens"/>
-    <InputComponent placeholder="Pesquise o ponto Turistico" type="search" v-model="modelValue.pesquisa"/>
+    <!--<InputComponent placeholder="Pesquise o ponto Turistico" type="search" v-model="modelValue.pesquisa"/>-->
+    <h2>Selecione os pontos turisticos da sua rota</h2>
     <div class="container-checkbox" >
         <div v-for="ponto in pontosTuristico" :key="ponto.id" class="checkbox" >
           <label :for="ponto.id">
@@ -38,6 +39,12 @@ onMounted(()=> {
 </template>
 
 <style scoped>
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
 .container-checkbox{
   display: flex;
   width: 456px;

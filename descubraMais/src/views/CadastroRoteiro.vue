@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import RoteiroPrimeiraEtapa from '@/components/RoteiroPrimeiraEtapa.vue'
 import RoteiroSegundaEtapa from '@/components/RoteiroSegundaEtapa.vue'
 import useAuth from '@/auth/auth.ts'
+import PopUpComponent from '@/components/PopUpComponent.vue'
 
 const router = useRouter()
 
@@ -19,6 +20,17 @@ const form = ref({
   imagens: []
 })
 
+//Variaveis para o popup
+const state = ref({})
+const type = ref('')
+const show = ref(false)
+
+function statesPopUp(){
+  if (state.value.sucess == true){
+    show.value = true
+    type.value = 'success'
+  }
+}
 async function axiosRoteiro(){
   /*const payload = JSON.parse(JSON.stringify(form.value)); // Remove qualquer reatividade do Vue
   console.log(payload)*/
@@ -27,7 +39,8 @@ async function axiosRoteiro(){
       method: 'POST',
       data: form.value
     })
-    console.log(response)
+    state.value = response
+    statesPopUp()
   }catch (error){
     console.log(error)
   }
@@ -38,12 +51,9 @@ const handleSubmit = () => {
   axiosRoteiro()
 }
 
-watch(() => form.value, () => {
-  console.log(form.value)
-});
-
 </script>
 <template>
+  <PopUpComponent :message=state.message :show=show :type=type />
   <div class="cadastro-container">
     <div class="left-section">
 

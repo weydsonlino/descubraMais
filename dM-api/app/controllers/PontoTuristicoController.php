@@ -65,6 +65,7 @@ class PontoTuristicoController extends Controller
             } else {
                 $this->respond([
                     'message' => 'Ponto turístico cadastrado com sucesso',
+                    'sucess' => true,
                 ], 201);
             }
         }
@@ -72,6 +73,7 @@ class PontoTuristicoController extends Controller
 
     public function show($id)
     {
+        $id = $id['id'];
         if ($id) {
             $pontoTuristico = PontoTuristico::getOne($id);
             $this->respond($pontoTuristico, 200);
