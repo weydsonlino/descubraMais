@@ -28,7 +28,7 @@
   gap: 3em;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   width: 50%;
   color: var(--header-text-color);
@@ -47,44 +47,6 @@
   background-color: var(--header-button-register-background);
   color: var(--header-button-register-text-color);
 }
-.menu-container {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-.menu-icon {
-  width: 40px;
-  height: 40px;
-}
-.dropdown-menu {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  list-style: none;
-  padding: 10px 0;
-  width: 300px;
-}
-.dropdown-menu li {
-  padding: 10px;
-  text-align: left;
-  cursor: pointer;
-  width: 100%;
-}
-.dropdown-menu li:hover {
-  background: #f0f0f0;
-}
-.links-dropdown{
-  color: black;
-  font-family: var(--tittle-font), serif;
-  font-size: var(--header-font-size);
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  text-decoration: none;
-}
 .cadastro-container {
     margin: 2% 9%;
     display: flex;
@@ -95,6 +57,20 @@
 .left-section {
   flex: 1;
   background-image: url('../../assets/imagem_do_cadastro.png');
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+}
+.left-section1 {
+  flex: 1;
+  background-image: url('../montanha.png');
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+}
+.left-sectionLogin {
+  flex: 1;
+  background-image: url('../../assets/foto-de-login.png');
   background-size: cover;
   background-position: center;
   padding: 2rem;
@@ -128,7 +104,7 @@
   font-size: 20px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
-button:hover {
+.button-continuar:hover {
   background-color: #e0a800;
 }
 .form-header{
@@ -266,7 +242,7 @@ option{
 
 .container_titulo {
   position: absolute;
-  top: 23%;  /* Coloca a caixa no meio da altura */
+  top: 20%;  /* Coloca a caixa no meio da altura */
   left: 70%;  /* Coloca a caixa no meio da largura */
   transform: translate(-50%, -50%);  /* Ajusta para centralizar perfeitamente */
   display: flex;
@@ -295,14 +271,110 @@ option{
   font-weight: 600;
 }
 
+/* dropdown de ver rotas*/
 
+
+.dropdown-menu {
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background-color: white;
+    max-width: 500px;
+    height:200px;
+    display: flex;
+    flex-direction: row-reverse; /* Garante que os itens fiquem alinhados à direita */
+    justify-content: flex-start;
+    padding: 10px;
+    gap: 12px; /* Espaço entre os itens */
+    overflow-x: auto; /* Permite rolagem horizontal */
+    direction: rtl; /* Faz a rolagem começar pela direita */
+    white-space: nowrap; /* Evita que os itens quebrem para a linha de baixo */
+    top: 70%;
+}
+
+/* Personalização da barra de rolagem horizontal */
+.dropdown-menu::-webkit-scrollbar {
+    height: 8px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 4px;
+}
+
+.option-item {
+    display: flex;
+    flex-direction: row-reverse; /* Mantém os itens alinhados corretamente */
+    align-items: center;
+    direction: ltr; /* Reverte o efeito do `rtl` para o conteúdo */
+}
+
+/* Estilização do rótulo */
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.option-label:hover {
+    background-color: #f5f5f5;
+}
+
+.option-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark-box {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.option-label input:checked + .checkmark-box {
+    background-color: #333;
+    border-color: #333;
+}
+
+.option-label input:checked + .checkmark-box::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+/*imagem do ver rotas*/
+
+.imagem-pequena {
+  width: 100px; /* Largura da imagem */
+  height: auto; /* Mantém a proporção */
+  border-radius: 8px; /* Deixa as bordas arredondadas */
+}
+
+.nome, .descricao, .dificuldade, .tipo {
+    margin-bottom: 10px; /* Espaço entre cada item */
+    padding: 8px 12px;    /* Espaço interno para conforto */
+    font-size: 14px;         /* Tamanho de fonte confortável */
+}
+/* dropdown de quia*/
 .dropdown {
     border-radius: 12px;
     border: 1px solid #ddd;
     overflow: hidden;
-    width: 400px;
+    width: 500px;
     background-color: white;
-    max-height: 200px; /* Limita a altura da lista */
+    max-height: 150px; /* Limita a altura da lista */
     overflow-y: auto; /* Permite rolagem quando o conteúdo excede o limite */
 }
 
@@ -312,7 +384,7 @@ option{
 }
 
 .dropdown::-webkit-scrollbar-thumb {
-    background-color: #888;
+    background-color: #888; 
     border-radius: 4px;
 }
 
@@ -374,12 +446,13 @@ option{
     transform: rotate(45deg);
 }
 
-
 .olhos {
-  color: ;
-  width: 25px;
-  height: 20px;
-  margin-left: -5px; /* Desloca a imagem para a esquerda */
+  width: 30px;                 /* Largura do botão */
+  height: 30px;                /* Altura do botão */
+  background: transparent;   /* Torna o fundo do botão transparente */
+  border: none;              /* Remove a borda do botão */
+  padding: 0;                /* Remove o padding do botão */
+  cursor: pointer;          /* Adiciona o cursor de 'mão' */
 }
 
 .link-cadastro {
@@ -392,4 +465,52 @@ option{
 
 .link-cadastro:hover{
   color: #F57C00;
+}
+/* buttao de ver rotas */
+
+
+.conteinerLaike {
+  display: flex;
+  justify-content: space-between;
+} 
+
+
+.blue {
+  background-color:#0CABA8;
+  background-image: url('../imagem_like_.png');
+  width: 90px;
+  height: 40px;
+  border: none;
+  border-radius: 20px 0px 0px 20px;
+  cursor: pointer;
+  background-size: 40% auto; /* Ajuste o tamanho da imagem */
+  background-repeat: no-repeat;
+   background-position: right center; /* Alinha a imagem à direita */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.red {
+  background-color: #8C1F28;
+  background-image: url('../image_deslike.png');
+  width: 90px;
+  height: 40px;
+  border: none;
+  border-radius: 0px 20px 20px 0px;
+  cursor: pointer;
+  background-size: 40% auto; /* Ajuste o tamanho da imagem */
+  background-repeat: no-repeat;
+  background-position: left center; /* Alinha a imagem à esquerda */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blue:hover {
+  background-color: #0FC2C0; /* Altera a cor de fundo no hover */
+}
+
+.red:hover {
+  background-color:#D92525; /* Altera a cor de fundo no hover */
 }

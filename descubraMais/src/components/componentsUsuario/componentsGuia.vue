@@ -27,7 +27,7 @@
       <div v-for="cidade in jsonDadosCidades" :key="cidade.id" class="checkbox-item">
         <label class="checkbox-label">
           {{ cidade.nome }}
-          <input type="checkbox" :id="'cidade-' + cidade.id" :value="cidade" v-model="estados_selecionados" />
+          <input type="checkbox" :id="'cidade-' + cidade.id" :value="cidade.id" v-model="estados_selecionados" />
           <span class="checkmark"></span>
         </label>
       </div>
@@ -36,6 +36,7 @@
     <div class="conteiner-Bu_Co">
       <button class="button-continuar" type="submit">Continuar</button>
     </div>
+    <router-link to="/login" class="link-cadastro">Já tem conta? Faça login!</router-link>
   </form>
 </template>
 
@@ -48,6 +49,8 @@ const props = defineProps({
 });
 
 // Estado do formulário
+const estados_selecionados = ref([]); // Inicializa como array vazio
+
 const formData = ref({
   nome: props.userData?.name || "",
   cpf: props.userData?.cpf || "",
@@ -60,28 +63,25 @@ const formData = ref({
   rua: "maria",
   pais: "",
   estado: "",
-  cidade: [],
+  cidade: estados_selecionados, // Usa o ref diretamente
 });
 
 // Dados das APIs
 const jsonDadosPais = ref([]);
 const jsonDadosEstados = ref([]);
 const jsonDadosCidades = ref([]);
-const estados_selecionados = ref([]);
 const isEstado = ref(false);
 
 // Buscar países, estados e cidades
-
 const fetchPaises = async () => {
   try {
     const { data } = await axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/paises/");
-    console.log("Países recebidos:", data); // Verifica a estrutura dos países
+    console.log("Países recebidos:", data);
     jsonDadosPais.value = data;
   } catch (error) {
     console.error("Erro ao carregar os países:", error);
   }
 };
-
 
 const fetchEstados = async () => {
   try {
@@ -102,7 +102,6 @@ const fetchCidades = async (estadoId: string | number) => {
     isEstado.value = true;
   } catch (error) {
     console.error("Erro ao carregar as cidades:", error);
-  } finally {
   }
 };
 
@@ -133,11 +132,10 @@ onMounted(() => {
 });
 
 // Computed para selecionar países e cidades
-
 const SelectPais = computed(() =>
   jsonDadosPais.value.map((pais: any) => ({
     id: pais.M49, // O ID correto é "M49"
-    nome: pais.nome // O nome já está correto
+    nome: pais.nome
   }))
 );
 

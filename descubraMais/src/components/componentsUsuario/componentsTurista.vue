@@ -25,6 +25,7 @@
       </option>
     </select>
     <button class="button-continuar" type="submit">Continuar</button>
+    <router-link to="/login" class="link-cadastro">Já tem conta? Faça login!</router-link>
   </form>
 </template>
 

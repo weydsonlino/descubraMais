@@ -3,8 +3,7 @@
   <div class="cadastro-container">
     <div class="left-section">
       <div class="form-header">
-        <h3 class="titulo-form">Cadastre o seu Roteiro Turistico</h3>
-        <p class="texto-form">Preencha as informações abaixo para adicionar um Roteiro turistico</p>
+        <h3 class="titulo-form">Crie sua Conta e Explore o Mundo com o Descubra Mais!</h3>
       </div>
     </div>
 
@@ -13,7 +12,6 @@
 
         <div class="container_titulo">
           <h1 class="titulo">Cadastre-se</h1>
-          <p>Seja um Guia ou apenas um viajante</p>
         </div>
 
         <form class="cadastro-form" @submit.prevent="handleSubmit">
@@ -37,9 +35,10 @@
             placeholder="Telefone" required />
 
           <div class="container_lado-a-lado">
-            <input type="password" class="input_lado-a-lado" v-model="formData.password" placeholder="Senha" required />
-            <input type="password" class="input_lado-a-lado" v-model="confirmPassword" placeholder="Confirmar Senha"
-              required />
+            <input type="password" class="input_lado-a-lado" v-model="formData.password" minlength="8"
+              placeholder="Senha" required />
+            <input type="password" class="input_lado-a-lado" v-model="confirmPassword" minlength="8"
+              placeholder="Confirmar Senha" required />
           </div>
 
           <select class="input-padrao" v-model="tipo" required>
@@ -49,6 +48,7 @@
           </select>
 
           <button class="button-continuar" type="submit">Continuar</button>
+          <router-link to="/login" class="link-cadastro">Já tem conta? Faça login!</router-link>
         </form>
       </div>
       <Guia v-if="formData.role === 'GUIA' && isFormValid" :userData="formData" />

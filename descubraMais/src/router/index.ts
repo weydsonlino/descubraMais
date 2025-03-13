@@ -33,6 +33,11 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue'),
     },
     {
+      path: '/paginaVerRota',
+      name: 'paginaVerRota',
+      component: () => import('../views/paginaVerRota.vue'),
+    },
+    {
       path: '/cadastroroteiro',
       name: 'cadastroroteiro',
       component: () => import('../views/CadastroRoteiro.vue'),

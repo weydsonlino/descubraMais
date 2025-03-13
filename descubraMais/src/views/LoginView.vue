@@ -1,6 +1,6 @@
 <template>
   <div class="cadastro-container">
-    <div class="left-section">
+    <div class="left-sectionLogin">
     </div>
 
     <div class="right-section">
@@ -19,9 +19,9 @@
               placeholder="Digite sua senha" minlength="8" pattern="^(?=.*[0-9])(?=.*[\W_]).{8,}$" required />
             <!-- olho da senha -->
 
-            <button type="button" @click="togglePassword">
-              <img class="olhos" v-if="showPassword" src="../assets/Eye off.png" alt="Mostrar senha">
-              <img class="olhos" v-else src="../assets/Eye off.png" alt="Ocultar senha">
+            <button class="olhos" type="button" @click="togglePassword">
+              <img class="olhos" v-if="showPassword" src="../assets/imagem visualizar.jpg" alt="Mostrar senha">
+              <img class="olhos" v-else src="../assets/imagem_não_visualizar.jpg" alt="Ocultar senha">
             </button>
 
           </div>
