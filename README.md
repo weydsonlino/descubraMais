@@ -49,19 +49,31 @@ MySQL
 
 SQL
 
-INSTALAÇÃO E CONFIGURAÇÃO DO PROJETO
+## Configuração do Projeto
 
-Para configurar o projeto, primeiro clone o repositório com o comando git clone https://github.com/weydsonlino/descubraMais.git e acesse o diretório do projeto usando cd descubraMais. Dentro desse diretório, há duas pastas principais: descubraMais, onde está o código do front-end, e dM-api, que contém o back-end. 
-Para instalar as dependências do front-end, entre na pasta correspondente com 
-cd descubraMais 
-e execute 
-npm install. 
-Já para o back-end, volte ao diretório raiz com 
-cd .., 
-acesse a pasta dM-api com 
-cd dM-api 
-e instale as dependências rodando 
-composer install.
+Para configurar o projeto localmente, siga os passos abaixo.
+
+### Clonando o repositório
+
+Clone o repositório do projeto e acesse o diretório principal:
+
+```bash
+git clone https://github.com/weydsonlino/descubraMais.git
+cd descubraMais
+```
+
+Instale as dependências do frontend
+
+```bash
+cd descubraMais
+npm install
+````
+Instale as dependências do backend
+```bash
+cd ../dM-api
+composer install
+````
+
 
 👥 Equipe de Desenvolvimento
 
